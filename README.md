@@ -1,2 +1,2 @@
 # InstantGrade_Server
-Diplomarbeitsprojekt ColorGradingAI Java + C++ Server
+Diplomarbeitsprojekt ColorGradingAI Java Server
