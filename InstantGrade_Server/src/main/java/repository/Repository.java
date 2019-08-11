@@ -70,7 +70,8 @@ public final class Repository {
                 e.printStackTrace();
 
             }
-            this.igCol.insertOne(user);
+            // HIER FEHLER -> ENUMS WERDEN NICHT SERIALISIERT!!!!
+            this.igCol.insertOne(user); // buildUserJSON(user)
             jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
 
@@ -123,21 +124,18 @@ public final class Repository {
     }
 
     public String login(User user) {
-
-
         JSONObject jsonUser = new JSONObject();
 
         Document doc = new Document("username", user.getUsername());
         doc.put("password", user.getPassword());
-        if (igCol.find(doc).first() == null) {
-
+        User tmpU = igCol.find(doc).first();
+        if (tmpU == null) {
             jsonUser.put("status", "failed");
             jsonUser.put("exception", "User doesn't exist");
-
         } else {
-            if (igCol.find(doc).first().getAccountType() == AccountType.VERIFIED) {
+            if (tmpU.getAccountType() == AccountType.VERIFIED) {
                 jsonUser.put("status", "success");
-                jsonUser.put("username", user.getUsername());
+                jsonUser.put("user", buildUserJSON(tmpU));
             } else {
                 jsonUser.put("status", "failed");
                 jsonUser.put("exception", "email not verified");
@@ -220,16 +218,36 @@ public final class Repository {
      */
     private String buildHTML(String verifyCode) {
         StringBuilder sb = new StringBuilder();
-        sb.append("<div style = 'text-align: center;'>");
-        sb.append("<h1 style = 'background-image: linear-gradient(90deg, #f5b042, #FF0000);\n" +
+        sb
+                .append("<div style = 'text-align: center; margin: 0 auto; width: 50%;'>")
+                .append("<h1 style = 'background-image: linear-gradient(90deg, #f5b042, #FF0000);\n" +
                 "  -webkit-background-clip: text;\n" +
-                "  -webkit-text-fill-color: transparent;'>");
-        sb.append("Activate your Account");
-        sb.append("</h1><br>");
-        sb.append("<a href='http://localhost:4200/verify?id=" + verifyCode + "'>Activate now</a>");
-        sb.append("<div style = 'position: absolute; bottom: 0; width: 100%; height: 50px;'>&copy; by Sebastian Schiefermayr</div>");
-        sb.append("</div>");
+                        "  -webkit-text-fill-color: transparent;'>")
+                .append("InstantGrade")
+                .append("</h1><br>")
+                .append("<h3>Activate your Account now!</h3>")
+                .append("<a href='http://localhost:4200/verify?id=" + verifyCode + "'>Activate now</a>")
+                .append("<div style = 'position: absolute; bottom: 0; width: 100%; height: 50px;'>&copy; by Sebastian Schiefermayr</div>")
+                .append("</div>");
 
         return sb.toString();
+    }
+
+    /**
+     * @author Sebastian Schiefermayr
+     * This Method builds the JSON Object which will be sent to our frontend
+     */
+    private JSONObject buildUserJSON(User user) {
+        JSONObject jso = new JSONObject();
+        jso
+                .put("username", user.getUsername())
+                .put("firstname", user.getFirstname())
+                .put("lastname", user.getLastname())
+                .put("email", user.getEmail())
+                .put("settings", new JSONObject(user.getSettings()).toString())
+                .put("credits", user.getCredits())
+                .put("accountType", user.getAccountType().toString())
+                .put("subscriptionStatus", user.getSubscriptionStatus().toString());
+        return jso;
     }
 }
