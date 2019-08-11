@@ -1,12 +1,12 @@
 package endpoint;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-
 import entity.User;
 import repository.Repository;
 
-@Path("login")
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
+@Path("auth")
 public class LoginService {
 
 
@@ -15,28 +15,26 @@ public class LoginService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("register")
     public String register(User user){
-
         return Repository.getInstance().register(user);
 
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON) // MediaType.APPLICATION_JSON
     @Produces(MediaType.APPLICATION_JSON)
     @Path("login")
     public String login(User user){
-
         return Repository.getInstance().login(user);
 
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("verificate")
-    public String verificate(User user){
+    @Path("verify")
+    public String verify(String token) {
 
-        return Repository.getInstance().verificate(user.getUsername());
+        return Repository.getInstance().verify(token);
 
     }
 

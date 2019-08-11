@@ -1,40 +1,42 @@
 package entity;
 
-import enums.AccountStatus;
+import enums.AccountType;
+import enums.SubscriptionStatus;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
 
 public class User {
-
     private ObjectId id;
-    private String firstName;
-    private String lastName;
     private String username;
-    private String password;
+    private String firstname;
+    private String lastname;
     private String email;
-    private String settings;
+    private String password;
+    private Settings settings;
     private int credits;
     private String ip;
     private Date lastSeen;
-    private AccountStatus accountStatus;
+    private AccountType accountType;
+    private SubscriptionStatus subscriptionStatus;
 
     public User(
             ObjectId id,
-            String firstName,
-            String lastName,
+            String firstname,
+            String lastname,
             String username,
             String password,
             String email,
-            String settings,
+            Settings settings,
             int credits,
             String ip,
             Date lastSeen,
-            AccountStatus accountStatus
+            AccountType accountType,
+            SubscriptionStatus subscriptionStatus
     ){
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -42,35 +44,19 @@ public class User {
         this.credits = credits;
         this.ip = ip;
         this.lastSeen = lastSeen;
-        this.accountStatus = accountStatus;
+        this.accountType = accountType;
+        this.subscriptionStatus = subscriptionStatus;
     }
 
     public User(){
 
     }
-
     public ObjectId getId() {
         return id;
     }
 
     public void setId(ObjectId id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -89,12 +75,12 @@ public class User {
         this.password = password;
     }
 
-    public AccountStatus getAccountStatus() {
-        return accountStatus;
+    public AccountType getAccountType() {
+        return accountType;
     }
 
-    public void setAccountStatus(AccountStatus accountStatus) {
-        this.accountStatus = accountStatus;
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
 
     public String getEmail() {
@@ -105,11 +91,11 @@ public class User {
         this.email = email;
     }
 
-    public String getSettings() {
+    public Settings getSettings() {
         return settings;
     }
 
-    public void setSettings(String settings) {
+    public void setSettings(Settings settings) {
         this.settings = settings;
     }
 
@@ -137,4 +123,27 @@ public class User {
         this.lastSeen = lastSeen;
     }
 
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public SubscriptionStatus getSubscriptionStatus() {
+        return subscriptionStatus;
+    }
+
+    public void setSubscriptionStatus(SubscriptionStatus subscriptionStatus) {
+        this.subscriptionStatus = subscriptionStatus;
+    }
 }

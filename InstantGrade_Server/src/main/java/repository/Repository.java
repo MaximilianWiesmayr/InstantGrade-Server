@@ -6,22 +6,20 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import entity.User;
-import enums.AccountStatus;
+import enums.AccountType;
+import org.apache.commons.codec.binary.Base64;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.bson.types.ObjectId;
 import org.json.JSONObject;
-import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.mail.*;
-import javax.mail.internet.*;
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -29,8 +27,7 @@ import java.util.Properties;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 /**
- *
- * @author H. Lackinger
+ * @author M. Wiesmayr
  */
 public final class Repository {
 
@@ -42,45 +39,44 @@ public final class Repository {
     private MongoClient client = MongoClients.create("mongodb://localhost");
     private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
     private MongoCollection<User> igCol = igDB.getCollection("userCollection", User.class);
-    
+
     private static Repository instance = null;
-    
-    private Repository () {
+
+    private Repository() {
 
     }
-    
-    public static Repository getInstance(){
-        if(instance == null){
+
+    public static Repository getInstance() {
+        if (instance == null) {
             instance = new Repository();
         }
-        
         return instance;
     }
-    
 
-    public String register(User user){
 
+    public String register(User user) {
         JSONObject jsonUser = new JSONObject();
 
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
-        if(igCol.find(doc).first() == null){
+        if (igCol.find(doc).first() == null) {
 
             try {
 
                 emailauth(user);
 
-            } catch (Exception e){
+            } catch (Exception e) {
 
                 e.printStackTrace();
 
             }
-
             this.igCol.insertOne(user);
+            jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
 
         } else {
 
+            jsonUser.put("status", "failed");
             jsonUser.put("exception", "User exists already");
 
         }
@@ -102,9 +98,11 @@ public final class Repository {
         Transport transport = mailSession.getTransport();
 
         String verificationCode = encrypt(user.getUsername());
-
+        String encodingOptions = "text/html; charset=UTF-8";
         MimeMessage message = new MimeMessage(mailSession);
-        message.setContent("Click on this link, to verificate your email: https://ie.schorn.io/ " + verificationCode, "text/plain");
+        message.setSubject("Verify your Account", "UTF-8");
+        message.setHeader("Content-Type", encodingOptions);
+        message.setContent(this.buildHTML(verificationCode), "text/html");
         message.setFrom(new InternetAddress("instantgrade@bastiarts.com"));
         message.addRecipient(Message.RecipientType.TO,
                 new InternetAddress(user.getEmail()));
@@ -127,20 +125,22 @@ public final class Repository {
     public String login(User user) {
 
 
-
         JSONObject jsonUser = new JSONObject();
 
         Document doc = new Document("username", user.getUsername());
         doc.put("password", user.getPassword());
-        if(igCol.find(doc).first() == null){
+        if (igCol.find(doc).first() == null) {
 
+            jsonUser.put("status", "failed");
             jsonUser.put("exception", "User doesn't exist");
 
         } else {
-            if(igCol.find(doc).first().getAccountStatus() == AccountStatus.VERIFICATED) {
+            if (igCol.find(doc).first().getAccountType() == AccountType.VERIFIED) {
+                jsonUser.put("status", "success");
                 jsonUser.put("username", user.getUsername());
             } else {
-                jsonUser.put("exception", "email not verificated");
+                jsonUser.put("status", "failed");
+                jsonUser.put("exception", "email not verified");
             }
 
         }
@@ -148,7 +148,7 @@ public final class Repository {
         return jsonUser.toString();
     }
 
-    public String verificate(String verifivationCode) {
+    public String verify(String verifivationCode) {
 
         JSONObject jsonstatus = new JSONObject();
 
@@ -156,10 +156,10 @@ public final class Repository {
 
         Document doc = new Document("username", username);
         User user = igCol.find(doc).first();
-        if(igCol.find(doc).first() == null){
+        if (igCol.find(doc).first() == null) {
             jsonstatus.put("status", "fail");
         } else {
-            user.setAccountStatus(AccountStatus.VERIFICATED);
+            user.setAccountType(AccountType.VERIFIED);
             this.igCol.replaceOne(doc, user);
             jsonstatus.put("status", "success");
         }
@@ -214,80 +214,22 @@ public final class Repository {
         return null;
     }
 
+    /**
+     * @author Sebastian Schiefermayr
+     * This Method builds the HTML format for the Mail
+     */
+    private String buildHTML(String verifyCode) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<div style = 'text-align: center;'>");
+        sb.append("<h1 style = 'background-image: linear-gradient(90deg, #f5b042, #FF0000);\n" +
+                "  -webkit-background-clip: text;\n" +
+                "  -webkit-text-fill-color: transparent;'>");
+        sb.append("Activate your Account");
+        sb.append("</h1><br>");
+        sb.append("<a href='http://localhost:4200/verify?id=" + verifyCode + "'>Activate now</a>");
+        sb.append("<div style = 'position: absolute; bottom: 0; width: 100%; height: 50px;'>&copy; by Sebastian Schiefermayr</div>");
+        sb.append("</div>");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   /*public List<Person> persons = new LinkedList<>();
-    List<String> personstring = new LinkedList<>();
-    
-    public void loadFromFile() throws IOException{
-        String [] tempperson;
-        personstring = Files.readAllLines(new File("rest.csv").toPath()        );
-        for(String s : personstring){
-            Person p = new Person();
-            tempperson = s.split(";");
-            p.setId(  Integer.parseInt(tempperson[0]));
-            p.setFirstname(tempperson[1]);
-            p.setLastname(tempperson[2]);
-            p.setGender(tempperson[3]);
-            p.setEmail(tempperson[4]);
-            p.setCountry(tempperson[5]);
-            p.setAge(Integer.parseInt(tempperson[6]));
-            p.setRegistered(Boolean.getBoolean(tempperson[7]));
-            this.persons.add(p);
-        }        
-        
+        return sb.toString();
     }
-
-    public List<Person> findAll() {
-        return this.persons;
-    }
-
-    public void insert(Person person) {
-        persons.add(person);
-    }
-    
-    public void delete(int personId){
-        this.persons.removeIf((person) -> person.getId() == personId);
-    }
-    
-    public Person update(int personId, Person person) {
-            this.delete(personId);
-            this.persons.add(person);
-        return person;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    *//*@Path("{id}")
-      @GET
-      public String getPathParam(@PathParam("id") long id){
-        return "get rereceived with PathParam: " + id;
-      }
-    
-    
-    
-    
-    Repository.get().delete(id);*//*
-*/
-    
-    
 }
