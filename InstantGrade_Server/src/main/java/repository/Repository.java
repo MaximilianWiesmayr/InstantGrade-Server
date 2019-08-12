@@ -59,7 +59,8 @@ public final class Repository {
 
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
-        if (igCol.find(doc).first() == null) {
+        User tmpU = igCol.find(doc).first();
+        if (tmpU == null) {
 
             try {
 
@@ -70,15 +71,20 @@ public final class Repository {
                 e.printStackTrace();
 
             }
-            // HIER FEHLER -> ENUMS WERDEN NICHT SERIALISIERT!!!!
-            this.igCol.insertOne(user); // buildUserJSON(user)
+            User newUser = new User();
+            newUser.setUsername(user.getUsername());
+            newUser.setFirstname(user.getFirstname());
+            newUser.setLastname(user.getLastname());
+            newUser.setEmail(user.getEmail());
+            newUser.setPassword(user.getPassword());
+            this.igCol.insertOne(newUser); // buildUserJSON(user)
             jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
 
         } else {
 
             jsonUser.put("status", "failed");
-            jsonUser.put("exception", "User exists already");
+            jsonUser.put("exception", "User already exists");
 
         }
 

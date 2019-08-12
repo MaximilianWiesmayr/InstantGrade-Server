@@ -49,7 +49,10 @@ public class User {
     }
 
     public User(){
-
+        this.setSubscriptionStatus(SubscriptionStatus.BASIC);
+        this.setAccountType(AccountType.NOT_VERIFIED);
+        this.setCredits(0);
+        this.setSettings(new Settings());
     }
     public ObjectId getId() {
         return id;
