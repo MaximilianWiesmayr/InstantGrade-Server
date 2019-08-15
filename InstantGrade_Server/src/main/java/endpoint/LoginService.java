@@ -1,6 +1,7 @@
 package endpoint;
 
 import entity.User;
+import org.json.JSONObject;
 import repository.Repository;
 
 import javax.ws.rs.*;
@@ -23,8 +24,14 @@ public class LoginService {
     @Consumes(MediaType.APPLICATION_JSON) // MediaType.APPLICATION_JSON
     @Produces(MediaType.APPLICATION_JSON)
     @Path("login")
-    public String login(User user){
-        return Repository.getInstance().login(user);
+    // Example Request {"username": "dummy", "password": "dummy"}
+    public String login(String userJSON) {
+        System.out.println("in request");
+        JSONObject jso = new JSONObject(userJSON);
+        User tmp = new User();
+        tmp.setUsername(jso.getString("username"));
+        tmp.setPassword(jso.getString("password"));
+        return Repository.getInstance().login(tmp);
 
     }
 
@@ -46,8 +53,6 @@ public class LoginService {
         return Repository.getInstance().test();
 
     }
-
-
 
 
 

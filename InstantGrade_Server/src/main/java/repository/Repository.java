@@ -13,6 +13,7 @@ import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.json.JSONObject;
+import util.jwt.JWTHelper;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -42,6 +43,8 @@ public final class Repository {
 
     private static Repository instance = null;
 
+    private JWTHelper jwth = new JWTHelper();
+
     private Repository() {
 
     }
@@ -53,42 +56,19 @@ public final class Repository {
         return instance;
     }
 
+    private static String decrypt(String encrypted) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
 
-    public String register(User user) {
-        JSONObject jsonUser = new JSONObject();
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
+            byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
 
-        Document doc = new Document("username", user.getUsername());
-        doc.put("email", user.getEmail());
-        User tmpU = igCol.find(doc).first();
-        if (tmpU == null) {
-
-            try {
-
-                emailauth(user);
-
-            } catch (Exception e) {
-
-                e.printStackTrace();
-
-            }
-            User newUser = new User();
-            newUser.setUsername(user.getUsername());
-            newUser.setFirstname(user.getFirstname());
-            newUser.setLastname(user.getLastname());
-            newUser.setEmail(user.getEmail());
-            newUser.setPassword(user.getPassword());
-            this.igCol.insertOne(newUser); // buildUserJSON(user)
-            jsonUser.put("status", "success");
-            jsonUser.put("username", user.getUsername());
-
-        } else {
-
-            jsonUser.put("status", "failed");
-            jsonUser.put("exception", "User already exists");
-
+            return new String(original);
+        } catch (Exception ex) {
+            return null;
         }
-
-        return jsonUser.toString();
     }
 
     private void emailauth(User user) throws Exception {
@@ -129,9 +109,45 @@ public final class Repository {
         }
     }
 
-    public String login(User user) {
+    public String register(User user) {
         JSONObject jsonUser = new JSONObject();
 
+        Document doc = new Document("username", user.getUsername());
+        doc.put("email", user.getEmail());
+        User tmpU = igCol.find(doc).first();
+        if (tmpU == null) {
+
+            try {
+
+                emailauth(user);
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+
+            }
+            User newUser = new User();
+            newUser.setUsername(user.getUsername());
+            newUser.setFirstname(user.getFirstname());
+            newUser.setLastname(user.getLastname());
+            newUser.setEmail(user.getEmail());
+            newUser.setPassword(user.getPassword());
+            this.igCol.insertOne(newUser);
+            jsonUser.put("status", "success");
+            jsonUser.put("username", user.getUsername());
+
+        } else {
+
+            jsonUser.put("status", "failed");
+            jsonUser.put("exception", "User already exists");
+
+        }
+
+        return jsonUser.toString();
+    }
+
+    public String login(User user) {
+        JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
         doc.put("password", user.getPassword());
         User tmpU = igCol.find(doc).first();
@@ -140,8 +156,14 @@ public final class Repository {
             jsonUser.put("exception", "User doesn't exist");
         } else {
             if (tmpU.getAccountType() == AccountType.VERIFIED) {
+                // Generate the JWT Token
+                /**
+                 * @author Sebastian Schiefermayr
+                 * */
+                tmpU.setAuthToken(jwth.createToken(tmpU.getUsername(), tmpU.getSubscriptionStatus()));
                 jsonUser.put("status", "success");
                 jsonUser.put("user", buildUserJSON(tmpU));
+                jsonUser.put("token", tmpU.getAuthToken());
             } else {
                 jsonUser.put("status", "failed");
                 jsonUser.put("exception", "email not verified");
@@ -150,25 +172,6 @@ public final class Repository {
         }
 
         return jsonUser.toString();
-    }
-
-    public String verify(String verifivationCode) {
-
-        JSONObject jsonstatus = new JSONObject();
-
-        String username = decrypt(verifivationCode);
-
-        Document doc = new Document("username", username);
-        User user = igCol.find(doc).first();
-        if (igCol.find(doc).first() == null) {
-            jsonstatus.put("status", "fail");
-        } else {
-            user.setAccountType(AccountType.VERIFIED);
-            this.igCol.replaceOne(doc, user);
-            jsonstatus.put("status", "success");
-        }
-
-        return jsonstatus.toString();
     }
 
     public String test() {
@@ -201,21 +204,28 @@ public final class Repository {
         return null;
     }
 
-    private static String decrypt(String encrypted) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+    public String verify(String verifivationCode) {
 
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.DECRYPT_MODE, skeySpec, iv);
-            byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted));
+        JSONObject jsonstatus = new JSONObject();
 
-            return new String(original);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        String username = decrypt(verifivationCode);
+        if (username == null) {
+            jsonstatus.put("status", "fail");
+            jsonstatus.put("exception", "Verification Code invalid");
+            return jsonstatus.toString();
+        }
+        Document doc = new Document("username", username);
+        User user = igCol.find(doc).first();
+        if (igCol.find(doc).first() == null) {
+            jsonstatus.put("status", "fail");
+            jsonstatus.put("exception", "User not found");
+        } else {
+            user.setAccountType(AccountType.VERIFIED);
+            this.igCol.replaceOne(doc, user);
+            jsonstatus.put("status", "success");
         }
 
-        return null;
+        return jsonstatus.toString();
     }
 
     /**
@@ -227,7 +237,7 @@ public final class Repository {
         sb
                 .append("<div style = 'text-align: center; margin: 0 auto; width: 50%;'>")
                 .append("<h1 style = 'background-image: linear-gradient(90deg, #f5b042, #FF0000);\n" +
-                "  -webkit-background-clip: text;\n" +
+                        "  -webkit-background-clip: text;\n" +
                         "  -webkit-text-fill-color: transparent;'>")
                 .append("InstantGrade")
                 .append("</h1><br>")
@@ -245,6 +255,7 @@ public final class Repository {
      */
     private JSONObject buildUserJSON(User user) {
         JSONObject jso = new JSONObject();
+
         jso
                 .put("username", user.getUsername())
                 .put("firstname", user.getFirstname())

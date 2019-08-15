@@ -13,12 +13,13 @@ public class User {
     private String lastname;
     private String email;
     private String password;
-    private Settings settings;
-    private int credits;
+    private Settings settings = new Settings();
+    private int credits = 0;
     private String ip;
     private Date lastSeen;
-    private AccountType accountType;
-    private SubscriptionStatus subscriptionStatus;
+    private AccountType accountType = AccountType.NOT_VERIFIED;
+    private SubscriptionStatus subscriptionStatus = SubscriptionStatus.BASIC;
+    private String authToken;
 
     public User(
             ObjectId id,
@@ -32,7 +33,8 @@ public class User {
             String ip,
             Date lastSeen,
             AccountType accountType,
-            SubscriptionStatus subscriptionStatus
+            SubscriptionStatus subscriptionStatus,
+            String authToken
     ){
         this.id = id;
         this.firstname = firstname;
@@ -46,6 +48,7 @@ public class User {
         this.lastSeen = lastSeen;
         this.accountType = accountType;
         this.subscriptionStatus = subscriptionStatus;
+        this.authToken = authToken;
     }
 
     public User(){
@@ -148,5 +151,13 @@ public class User {
 
     public void setSubscriptionStatus(SubscriptionStatus subscriptionStatus) {
         this.subscriptionStatus = subscriptionStatus;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }
