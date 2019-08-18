@@ -10,6 +10,9 @@ import enums.SubscriptionStatus;
 
 import java.util.Date;
 
+/**
+ * @author Sebastian Schiefermayr
+ */
 public class JWTHelper {
     private String SECRET_KEY = "topSecretKey";
     private String ISSUER = "InstantGrade";
