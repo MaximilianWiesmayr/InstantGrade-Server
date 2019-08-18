@@ -283,8 +283,14 @@ public final class Repository {
      * @implNote It could return null, if the User doesn't exists
      */
     public String getOverview(final String username) {
-        return buildUserJSON(this.userCollection.find(new Document().append("username", username)).first()).toString();
-        //  return username;
+        User temp = userCollection.find(new Document().append("username", username)).first();
+        JSONObject jso = new JSONObject();
+        jso
+                .put("photos", 2)
+                .put("disc_space", "2 GB")
+                .put("subscription", temp.getSubscriptionStatus().toString())
+                .put("notifications", 0);
+        return jso.toString();
     }
 
 }
