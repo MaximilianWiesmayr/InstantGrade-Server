@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import entity.Image;
 import entity.User;
 import enums.AccountType;
 import org.apache.commons.codec.binary.Base64;
@@ -13,6 +14,7 @@ import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.json.JSONObject;
+import util.UserUtil;
 import util.jwt.JWTHelper;
 
 import javax.crypto.Cipher;
@@ -40,6 +42,7 @@ public final class Repository {
     private MongoClient client = MongoClients.create("mongodb://localhost");
     private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
     private MongoCollection<User> userCollection = igDB.getCollection("userCollection", User.class);
+    private MongoCollection<Image> imageCollection = igDB.getCollection("imageCollection", Image.class);
 
     private static Repository instance = null;
 
@@ -286,11 +289,16 @@ public final class Repository {
         User temp = userCollection.find(new Document().append("username", username)).first();
         JSONObject jso = new JSONObject();
         jso
-                .put("photos", 2)
-                .put("disc_space", "2 GB")
+                .put("photos", UserUtil.countAllImagesFromUser(username, imageCollection))
+                .put("disc_space", UserUtil.calculateDiscSpace(username, imageCollection))
                 .put("subscription", temp.getSubscriptionStatus().toString())
                 .put("notifications", 0);
         return jso.toString();
+    }
+
+    // Gets all the Photos from a user in JSON
+    public String getPhotos(final String username) {
+        return "";
     }
 
 }

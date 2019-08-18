@@ -15,10 +15,20 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("clientarea")
 public class ClientAreaService {
+    // Load Information to Display it on our Dashboard
     @GET
     @Produces(MediaType.APPLICATION_JSON) // Temporally
     @Path("overview/{username}")
     public String getOverview(@NotNull @PathParam("username") String username) {
         return Repository.getInstance().getOverview(username);
     }
+
+    // Loads the photos
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("photos/{username}")
+    public String getPhotos(@NotNull @PathParam("username") String username) {
+        return Repository.getInstance().getPhotos(username);
+    }
+
 }
