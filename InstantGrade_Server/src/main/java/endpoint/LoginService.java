@@ -26,7 +26,6 @@ public class LoginService {
     @Path("login")
     // Example Request {"username": "dummy", "password": "dummy"}
     public String login(String userJSON) {
-        System.out.println("in request");
         JSONObject jso = new JSONObject(userJSON);
         User tmp = new User();
         tmp.setUsername(jso.getString("username"));

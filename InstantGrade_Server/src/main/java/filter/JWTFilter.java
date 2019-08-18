@@ -19,6 +19,7 @@ public class JWTFilter implements ContainerRequestFilter {
         if (rc.getUriInfo().getPath().contains("login")
                 || rc.getUriInfo().getPath().contains("register")
                 || rc.getUriInfo().getPath().contains("verify")
+                || rc.getMethod().equals("OPTIONS")
         ) {
             return;
         }

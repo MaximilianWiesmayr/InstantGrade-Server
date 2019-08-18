@@ -39,7 +39,7 @@ public final class Repository {
 
     private MongoClient client = MongoClients.create("mongodb://localhost");
     private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-    private MongoCollection<User> igCol = igDB.getCollection("userCollection", User.class);
+    private MongoCollection<User> userCollection = igDB.getCollection("userCollection", User.class);
 
     private static Repository instance = null;
 
@@ -114,7 +114,7 @@ public final class Repository {
 
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
-        User tmpU = igCol.find(doc).first();
+        User tmpU = userCollection.find(doc).first();
         if (tmpU == null) {
 
             try {
@@ -132,7 +132,7 @@ public final class Repository {
             newUser.setLastname(user.getLastname());
             newUser.setEmail(user.getEmail());
             newUser.setPassword(user.getPassword());
-            this.igCol.insertOne(newUser);
+            this.userCollection.insertOne(newUser);
             jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
 
@@ -150,7 +150,7 @@ public final class Repository {
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
         doc.put("password", user.getPassword());
-        User tmpU = igCol.find(doc).first();
+        User tmpU = userCollection.find(doc).first();
         if (tmpU == null) {
             jsonUser.put("status", "failed");
             jsonUser.put("exception", "User doesn't exist");
@@ -215,13 +215,13 @@ public final class Repository {
             return jsonstatus.toString();
         }
         Document doc = new Document("username", username);
-        User user = igCol.find(doc).first();
-        if (igCol.find(doc).first() == null) {
+        User user = userCollection.find(doc).first();
+        if (userCollection.find(doc).first() == null) {
             jsonstatus.put("status", "fail");
             jsonstatus.put("exception", "User not found");
         } else {
             user.setAccountType(AccountType.VERIFIED);
-            this.igCol.replaceOne(doc, user);
+            this.userCollection.replaceOne(doc, user);
             jsonstatus.put("status", "success");
         }
 
@@ -267,4 +267,24 @@ public final class Repository {
                 .put("subscriptionStatus", user.getSubscriptionStatus().toString());
         return jso;
     }
+
+    /**
+     * ================================================
+     *                  CLIENT AREA
+     * ================================================
+     * @author Sebastian Schiefermayr
+     * @since 16.08.2019
+     * @version 1.0
+     * Handles all the Requests according to the Client Area
+     * */
+
+    /**
+     * @param username - UNIQUE - Is the Key, to search in the Database.
+     * @implNote It could return null, if the User doesn't exists
+     */
+    public String getOverview(final String username) {
+        return buildUserJSON(this.userCollection.find(new Document().append("username", username)).first()).toString();
+        //  return username;
+    }
+
 }

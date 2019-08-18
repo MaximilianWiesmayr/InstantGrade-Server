@@ -19,7 +19,7 @@ public class JWTHelper {
 
     public String createToken(String username, SubscriptionStatus subscriptionStatus) {
         // Validity time of the token
-        int ACCESS_TOKEN_VALIDITY_SECONDS = 3600; // 1h
+        int ACCESS_TOKEN_VALIDITY_SECONDS = 3600; // 1h 3600s
         try {
             // The algorithm used for the signature of the Token
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
