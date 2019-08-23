@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("image")
-public class ImageUploadService {
+public class ImageService {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
