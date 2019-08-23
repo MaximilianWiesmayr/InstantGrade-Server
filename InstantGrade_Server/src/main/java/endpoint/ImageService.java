@@ -14,6 +14,7 @@ import java.io.InputStream;
  * @author Sebastian Schiefermayr
  */
 
+@Path("image")
 public class ImageService {
 
     @POST
@@ -21,9 +22,9 @@ public class ImageService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("upload")
     public String uploadImage(@FormDataParam("file") InputStream fileInputStream,
-                              @FormDataParam("file") FormDataContentDisposition fileMetaData) {
-
-        System.out.println(fileMetaData.getFileName());
+                              @FormDataParam("file") FormDataContentDisposition fileMetaData,
+                              @FormDataParam("owner") String owner) {
+        System.out.println(owner + " " + fileMetaData.getFileName());
         return "";
     }
 }
