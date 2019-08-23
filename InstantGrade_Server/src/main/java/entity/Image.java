@@ -14,6 +14,8 @@ public class Image {
     // -= IMAGE SPECIFIC METADATA =-
     private Metadata metadata; // Exif Metadata from library: https://drewnoakes.com/code/exif/
 
+    public Image() {
+    }
     public Image(String factoryName, String owner) {
         this.factoryName = factoryName;
         this.owner = owner;
