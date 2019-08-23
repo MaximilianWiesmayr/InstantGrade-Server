@@ -147,7 +147,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 .gitignore
-.idea/
 target/classes/META-INF/
 target/classes/REST_JavaSE.class
 target/classes/entity/Settings.class
