@@ -20,9 +20,12 @@ import util.jwt.JWTHelper;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.json.JsonObject;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -110,6 +113,46 @@ public final class Repository {
             String password = "6Tmv0?h4";
             return new PasswordAuthentication(username, password);
         }
+    }
+
+    // Uploading image to server and adding path into the database
+    public String upload(Image image) {
+
+        JSONObject jsonImage = new JSONObject();
+
+        Document doc = new Document("factoryName", image.getFactoryName());
+        doc.put("owner", image.getOwner());
+        Image tempI = imageCollection.find(doc).first();
+        if(tempI == null){
+
+
+
+            Image newImage = new Image();
+            newImage.setFactoryName(image.getFactoryName());
+            newImage.setOwner(image.getOwner());
+            newImage.setCustomName(image.getCustomName());
+            newImage.setExtension(image.getExtension());
+            newImage.setFilepath(createFilepath(image));
+            this.imageCollection.insertOne(newImage);
+
+            jsonImage.put("status", "failed");
+            jsonImage.put("customName", image.getCustomName());
+
+        } else {
+
+            jsonImage.put("status", "failed");
+            jsonImage.put("exception", "Image already exists in this directory");
+
+        }
+
+        return jsonImage.toString();
+    }
+
+    private String createFilepath(Image image) {
+
+        image.setFilepath("uploads/" + image.getOwner() + "/" + image.getFactoryName() + "." + image.getExtension());
+
+        return image.getFilepath();
     }
 
     public String register(User user) {

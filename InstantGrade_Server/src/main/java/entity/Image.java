@@ -2,6 +2,8 @@ package entity;
 
 import com.drew.metadata.Metadata;
 
+import java.io.File;
+
 /**
  * @author Sebastian Schiefermayr
  */
@@ -13,6 +15,11 @@ public class Image {
     private String filepath; // Absolute Path of the image (Future Folder-Structure: uploads/{username}/{image}.{extension} )
     // -= IMAGE SPECIFIC METADATA =-
     private Metadata metadata; // Exif Metadata from library: https://drewnoakes.com/code/exif/
+    private File file;
+
+    public Image(){
+
+    }
 
     public Image(String factoryName, String owner) {
         this.factoryName = factoryName;
@@ -65,5 +72,13 @@ public class Image {
 
     public void setMetadata(Metadata metadata) {
         this.metadata = metadata;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 }
