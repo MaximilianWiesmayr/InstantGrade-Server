@@ -2,6 +2,7 @@ package endpoint;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import repository.Repository;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -24,7 +25,9 @@ public class ImageService {
     public String uploadImage(@FormDataParam("file") InputStream fileInputStream,
                               @FormDataParam("file") FormDataContentDisposition fileMetaData,
                               @FormDataParam("owner") String owner) {
+
         System.out.println(owner + " " + fileMetaData.getFileName());
-        return "";
+
+        return Repository.getInstance().upload(fileInputStream, fileMetaData, owner);
     }
 }
