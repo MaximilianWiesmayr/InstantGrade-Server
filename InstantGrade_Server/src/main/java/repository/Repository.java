@@ -38,8 +38,7 @@ public final class Repository {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
-
-    private MongoClient client = MongoClients.create("mongodb://localhost");
+    private MongoClient client = MongoClients.create("mongodb://Basti:Tiger_2017@185.234.72.110/?authSource=IG");
     private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
     private MongoCollection<User> userCollection = igDB.getCollection("userCollection", User.class);
     private MongoCollection<Image> imageCollection = igDB.getCollection("imageCollection", Image.class);
@@ -49,7 +48,6 @@ public final class Repository {
     private JWTHelper jwth = new JWTHelper();
 
     private Repository() {
-
     }
 
     public static Repository getInstance() {

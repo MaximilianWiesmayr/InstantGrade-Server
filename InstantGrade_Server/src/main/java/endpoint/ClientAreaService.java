@@ -30,5 +30,4 @@ public class ClientAreaService {
     public String getPhotos(@NotNull @PathParam("username") String username) {
         return Repository.getInstance().getPhotos(username);
     }
-
 }

@@ -85,6 +85,12 @@
             <artifactId>metadata-extractor</artifactId>
             <version>2.12.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>2.17</version> <!-- Make sure the Jersey version matches
+                                 the one you are currently using -->
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

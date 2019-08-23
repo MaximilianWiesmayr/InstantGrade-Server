@@ -1,5 +1,6 @@
 import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public class REST_JavaSE {
 
     public static org.glassfish.grizzly.http.server.HttpServer startServer() {
         // Im Package "endpoint" alle Klassen durchsuchen, um REST Services zu finden
-        final ResourceConfig rc = new ResourceConfig().packages("endpoint","filter");
+        final ResourceConfig rc = new ResourceConfig().packages("endpoint", "filter").register(MultiPartFeature.class);
         // Server starten
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }
