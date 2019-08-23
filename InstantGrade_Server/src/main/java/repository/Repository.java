@@ -1,5 +1,10 @@
 package repository;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -13,6 +18,7 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.json.JSONObject;
 import util.UserUtil;
 import util.jwt.JWTHelper;
@@ -23,7 +29,7 @@ import javax.crypto.spec.SecretKeySpec;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.InputStream;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -39,7 +45,7 @@ public final class Repository {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
-    private MongoClient client = MongoClients.create("mongodb://Basti:Tiger_2017@185.234.72.110/?authSource=IG");
+    private MongoClient client = MongoClients.create("mongodb://<USERNAME>:<PW>@185.234.72.110/?authSource=IG");
     private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
     private MongoCollection<User> userCollection = igDB.getCollection("userCollection", User.class);
     private MongoCollection<Image> imageCollection = igDB.getCollection("imageCollection", Image.class);
@@ -300,29 +306,43 @@ public final class Repository {
         return "";
     }
 
-    // Uploading image to server and adding path into the database
-
     /**
      * @author Maximilian Wiesmayr
      */
-    public String upload(InputStream imageStream) {
+    public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
 
         JSONObject jsonImage = new JSONObject();
-        /*
-        Document doc = new Document("factoryName", image.getFactoryName());
-        doc.put("owner", image.getOwner());
+
+        Document doc = new Document("factoryName", fileMetaData.getName());
+        doc.put("owner", owner);
         Image tempI = imageCollection.find(doc).first();
-        if(tempI == null){
+        String filepath = createFilepath(fileMetaData, owner);
+        File tempFile = new File(filepath);
+        if (tempI == null && !tempFile.exists()) {
+            try {
+                int read = 0;
+                byte[] bytes = new byte[1024];
+
+                OutputStream out = new FileOutputStream(tempFile);
+                while ((read = imageStream.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.getStackTrace();
+            }
+
             Image newImage = new Image();
-            newImage.setFactoryName(image.getFactoryName());
-            newImage.setOwner(image.getOwner());
-            newImage.setCustomName(image.getCustomName());
-            newImage.setExtension(image.getExtension());
-            newImage.setFilepath(createFilepath(image));
+            newImage.setFactoryName(fileMetaData.getFileName());
+            newImage.setOwner(owner);
+            newImage.setMetadata(getMetadata(tempFile));
+            newImage.setExtension("jpg");
+            newImage.setFilepath(filepath);
             this.imageCollection.insertOne(newImage);
 
-            jsonImage.put("status", "failed");
-            jsonImage.put("customName", image.getCustomName());
+            jsonImage.put("status", "success");
+            jsonImage.put("fileName", fileMetaData.getName());
 
         } else {
 
@@ -330,15 +350,51 @@ public final class Repository {
             jsonImage.put("exception", "Image already exists in this directory");
 
         }
-        */
+
         return jsonImage.toString();
     }
 
-    private String createFilepath(Image image) {
+    private String createFilepath(FormDataContentDisposition fileMetaData, String owner) {
+        File upload_dir = new File("uploads/" + owner);
+        if (!upload_dir.exists()) {
+            if (upload_dir.mkdirs()) {
+                System.out.println("Directory " + upload_dir.getPath() + " successfully created!");
+            } else {
+                System.out.println("Directory could not been created.");
+            }
+        }
+        return upload_dir.getPath() + "/" + fileMetaData.getFileName();
 
-        image.setFilepath("uploads/" + image.getOwner() + "/" + image.getFactoryName() + "." + image.getExtension());
-
-        return image.getFilepath();
     }
 
+    /**
+     * @param file - the current File
+     * @author Sebastian Schiefermayr
+     */
+    private String getMetadata(File file) {
+        try {
+            Metadata m = ImageMetadataReader.readMetadata(file);
+
+
+            JSONObject metaObject = new JSONObject();
+            for (Directory directory : m.getDirectories()) {
+                for (Tag tag : directory.getTags()) {
+                    metaObject.put(tag.getTagName(), tag.getDescription());
+                    //System.out.format("[%s] - %s = %s",
+                    //       directory.getName(), tag.getTagName(), tag.getDescription());
+                }
+                if (directory.hasErrors()) {
+                    for (String error : directory.getErrors()) {
+                        System.err.format("ERROR: %s", error);
+                    }
+                }
+            }
+            return metaObject.toString();
+        } catch (ImageProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 }

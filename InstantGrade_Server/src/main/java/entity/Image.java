@@ -1,6 +1,5 @@
 package entity;
 
-import com.drew.metadata.Metadata;
 
 /**
  * @author Sebastian Schiefermayr
@@ -12,7 +11,7 @@ public class Image {
     private String extension; // Image Extension (JPG, PNG, RAW)
     private String filepath; // Absolute Path of the image (Future Folder-Structure: uploads/{username}/{image}.{extension} )
     // -= IMAGE SPECIFIC METADATA =-
-    private Metadata metadata; // Exif Metadata from library: https://drewnoakes.com/code/exif/
+    private String metadata; // Exif Metadata from library: https://drewnoakes.com/code/exif/
 
     public Image() {
     }
@@ -61,11 +60,11 @@ public class Image {
         this.filepath = filepath;
     }
 
-    public Metadata getMetadata() {
+    public String getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(Metadata metadata) {
+    public void setMetadata(String metadata) {
         this.metadata = metadata;
     }
 }
