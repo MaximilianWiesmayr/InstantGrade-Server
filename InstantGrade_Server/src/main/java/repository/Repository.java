@@ -30,6 +30,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -107,6 +108,38 @@ public final class Repository {
                 message.getRecipients(Message.RecipientType.TO));
         transport.close();
 
+    }
+
+    public String edit(Image image) {
+
+        JSONObject renamed = new JSONObject();
+
+
+        File file = new File("uploads/" + image.getOwner() + "/" + image.getFactoryName());
+
+        file.renameTo(new File("uploads/" + image.getOwner() + "/" + image.getFilepath()));
+
+        Document doc = new Document("filepath", "uploads/" + image.getOwner() + "/" + image.getFactoryName());
+        Image newImage = imageCollection.findOneAndDelete(doc);
+        if(newImage == null){
+
+            renamed.put("status", "failed")
+                    .put("exception", "Image doesn't exist");
+
+        } else {
+
+            newImage.setFactoryName(image.getFactoryName());
+            newImage.setFilepath("uploads/" + image.getOwner() + "/" + image.getFilepath());
+            this.imageCollection.insertOne(newImage);
+
+            renamed.put("status", "success")
+                    .put("fileName", image.getFilepath());
+
+        }
+
+
+
+        return null;
     }
 
     private class SMTPAuthenticator extends javax.mail.Authenticator {
@@ -303,7 +336,10 @@ public final class Repository {
 
     // Gets all the Photos from a user in JSON
     public String getPhotos(final String username) {
-        return "";
+
+        Document doc = new Document("owner", username);
+
+        return imageCollection.find().into(new ArrayList<Image>()).toString();
     }
 
     /**
