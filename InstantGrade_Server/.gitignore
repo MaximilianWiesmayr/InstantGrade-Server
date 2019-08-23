@@ -154,3 +154,5 @@ target/classes/entity/Settings.class
 target/classes/enums/
 target/classes/filter/
 target/generated-sources/
+classes/
+uploads/*
