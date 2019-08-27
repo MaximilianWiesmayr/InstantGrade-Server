@@ -36,12 +36,13 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+        <dependency> <!-- NEUERE VERSION ADDEN!-->
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-bundle</artifactId>
             <version>1.19.2</version>
             <type>jar</type>
         </dependency>
+
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-sync</artifactId>
@@ -91,6 +92,7 @@
             <version>2.17</version> <!-- Make sure the Jersey version matches
                                  the one you are currently using -->
         </dependency>
+
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
