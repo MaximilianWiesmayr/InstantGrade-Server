@@ -66,6 +66,7 @@ public final class Repository {
         return instance;
     }
 
+    // decryption for Token from Email authentication
     private static String decrypt(String encrypted) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
@@ -81,6 +82,7 @@ public final class Repository {
         }
     }
 
+    // Email authentication for registration
     private void emailauth(User user) throws Exception {
 
         Properties props = new Properties();
@@ -111,6 +113,7 @@ public final class Repository {
 
     }
 
+    //login for email sender for Email authentication
     private class SMTPAuthenticator extends javax.mail.Authenticator {
         public PasswordAuthentication getPasswordAuthentication() {
             String username = "instantgrade@bastiarts.com";
@@ -119,6 +122,7 @@ public final class Repository {
         }
     }
 
+    // create new User with email authentication
     public String register(User user) {
         JSONObject jsonUser = new JSONObject();
 
@@ -156,6 +160,7 @@ public final class Repository {
         return jsonUser.toString();
     }
 
+    // login with jwt Token
     public String login(User user) {
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
@@ -198,6 +203,7 @@ public final class Repository {
     private static final String key = "aesEncryptionKey";
     private static final String initVector = "encryptionIntVec";
 
+    // encryption for Token from Email authentication
     private static String encrypt(String value) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
@@ -214,6 +220,7 @@ public final class Repository {
         return null;
     }
 
+    // verify user with verification Code
     public String verify(String verifivationCode) {
 
         JSONObject jsonstatus = new JSONObject();
@@ -314,6 +321,7 @@ public final class Repository {
     /**
      * @author Maximilian Wiesmayr
      */
+    // uploads image to Server and Database
     public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
 
         JSONObject jsonImage = new JSONObject();
@@ -358,7 +366,7 @@ public final class Repository {
 
         return jsonImage.toString();
     }
-
+    // creates Filepath for Imageupload
     private String createFilepath(FormDataContentDisposition fileMetaData, String owner) {
         File upload_dir = new File("uploads/" + owner);
         if (!upload_dir.exists()) {
@@ -402,7 +410,7 @@ public final class Repository {
         }
         return null;
     }
-
+    //deletes Image from Database and Server
     public String delete(String name, String owner) {
 
         JSONObject deleted = new JSONObject();
@@ -428,6 +436,7 @@ public final class Repository {
         return deleted.toString();
     }
 
+    //edit Name from file in Database and on Server
     public String edit(String oldName, String newName, String owner) {
 
         JSONObject renamed = new JSONObject();
