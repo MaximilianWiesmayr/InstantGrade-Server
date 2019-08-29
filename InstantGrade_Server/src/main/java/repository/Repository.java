@@ -402,16 +402,16 @@ public final class Repository {
         return null;
     }
 
-    public String edit(Image image) {
+    public String edit(String oldName, String newName, String owner) {
 
         JSONObject renamed = new JSONObject();
 
 
-        File file = new File("uploads/" + image.getOwner() + "/" + image.getFactoryName());
+        File file = new File("uploads/" + owner + "/" + oldName);
 
-        file.renameTo(new File("uploads/" + image.getOwner() + "/" + image.getFilepath()));
+        file.renameTo(new File("uploads/" + owner + "/" + newName));
 
-        Document doc = new Document("filepath", "uploads/" + image.getOwner() + "/" + image.getFactoryName());
+        Document doc = new Document("filepath", "uploads/" + owner + "/" + oldName);
         Image newImage = imageCollection.findOneAndDelete(doc);
         if (newImage == null) {
 
@@ -420,12 +420,12 @@ public final class Repository {
 
         } else {
 
-            newImage.setFactoryName(image.getFactoryName());
-            newImage.setFilepath("uploads/" + image.getOwner() + "/" + image.getFilepath());
+            newImage.setFactoryName(newName);
+            newImage.setFilepath("uploads/" + owner + "/" + newName);
             this.imageCollection.insertOne(newImage);
 
             renamed.put("status", "success")
-                    .put("fileName", image.getFilepath());
+                    .put("fileName", newName);
 
         }
 

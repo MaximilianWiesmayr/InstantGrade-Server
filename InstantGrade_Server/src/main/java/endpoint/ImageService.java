@@ -1,8 +1,8 @@
 package endpoint;
 
-import entity.Image;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.json.JSONObject;
 import repository.Repository;
 
 import javax.ws.rs.Consumes;
@@ -33,8 +33,12 @@ public class ImageService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("edit")
-    public String edit(Image image) {
+    public String edit(String jsonEditString) {
+        JSONObject jsonEdit = new JSONObject(jsonEditString);
+        String oldName = jsonEdit.getString("oldName");
+        String newName = jsonEdit.getString("newName");
+        String owner = jsonEdit.getString("owner");
 
-        return Repository.getInstance().edit(image);
+        return Repository.getInstance().edit(oldName, newName, owner);
     }
 }

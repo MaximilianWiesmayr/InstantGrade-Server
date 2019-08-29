@@ -36,7 +36,7 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency> <!-- NEUERE VERSION ADDEN!-->
+        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-bundle</artifactId>
             <version>1.19.2</version>
@@ -89,9 +89,10 @@
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
-            <version>2.17</version> <!-- Make sure the Jersey version matches
+            <version>2.23.2</version> <!-- Make sure the Jersey version matches
                                  the one you are currently using -->
         </dependency>
+
 
     </dependencies>
     <properties>
