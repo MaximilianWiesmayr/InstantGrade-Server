@@ -128,7 +128,7 @@ public final class Repository {
 
         } else {
 
-            newImage.setFactoryName(newName);
+            newImage.setCustomName(newName);
             newImage.setFilepath("uploads/" + owner + "/" + newName);
             this.imageCollection.insertOne(newImage);
 
@@ -140,6 +140,31 @@ public final class Repository {
 
 
         return null;
+    }
+
+    public String delete(String name, String owner) {
+
+        JSONObject deleted = new JSONObject();
+
+        File file = new File("uploads/" + owner + "/" + name);
+
+        file.delete();
+
+        Document doc = new Document("filepath", "uploads/" + owner + "/" + name);
+        Image deletetone = imageCollection.findOneAndDelete(doc);
+        if(deletetone == null){
+
+            deleted.put("status", "failed")
+                    .put("exception", "Image doesn't exist");
+
+        } else {
+
+            deleted.put("status", "success")
+                    .put("fileName", name);
+
+        }
+
+        return deleted.toString();
     }
 
     private class SMTPAuthenticator extends javax.mail.Authenticator {
