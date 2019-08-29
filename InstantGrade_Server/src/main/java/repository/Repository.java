@@ -31,6 +31,7 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +48,7 @@ public final class Repository {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
-    private MongoClient client = MongoClients.create("mongodb://Basti:Tiger_2017@185.234.72.110/?authSource=IG");
+    private MongoClient client = MongoClients.create("mongodb://<user>:<Pw>@instantgrade.bastiarts.com/?authSource=IG");
     private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
     private MongoCollection<User> userCollection = igDB.getCollection("userCollection", User.class);
     private MongoCollection<Image> imageCollection = igDB.getCollection("imageCollection", Image.class);
@@ -305,7 +306,6 @@ public final class Repository {
 
     // Gets all the Photos from a user in JSON
     public String getPhotos(final String username) {
-
         Document doc = new Document("owner", username);
 
         return ImageUtil.parseImageList(imageCollection.find(doc).into(new ArrayList<>()));
@@ -409,11 +409,12 @@ public final class Repository {
 
         File file = new File("uploads/" + owner + "/" + name);
 
-        file.delete();
+        //  file.delete();
 
         Document doc = new Document("filepath", "uploads/" + owner + "/" + name);
         Image deletetone = imageCollection.findOneAndDelete(doc);
-        if (deletetone == null) {
+        // TODO change DB - IMAGE Path to trash/{User}/...
+        if (deletetone == null && !moveFileToTrash(file, owner)) {
 
             deleted.put("status", "failed")
                     .put("exception", "Image doesn't exist");
@@ -426,6 +427,19 @@ public final class Repository {
         }
 
         return deleted.toString();
+    }
+
+    public String recover(String filename, String owner) {
+        File file = new File("trash/" + owner + "/" + filename);
+        JSONObject recovered = new JSONObject();
+        if (recoverFileFromTrash(file)) {
+            recovered.put("status", "success")
+                    .put("fileName", filename);
+        } else {
+            recovered.put("status", "failed")
+                    .put("exception", "Image doesn't exist");
+        }
+        return recovered.toString();
     }
 
     public String edit(String oldName, String newName, String owner) {
@@ -457,5 +471,33 @@ public final class Repository {
 
 
         return null;
+    }
+
+
+    private boolean moveFileToTrash(File fileToTrash, String owner) {
+        String trashPath = "trash/" + owner;
+        File trashFolder = new File(trashPath);
+        if (!trashFolder.exists()) {
+            trashFolder.mkdirs();
+        }
+        try {
+            Files.move(fileToTrash.toPath(),
+                    new File(fileToTrash.getPath().replace("uploads", "trash")).toPath());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean recoverFileFromTrash(File fileFromTrash) {
+        try {
+            Files.move(new File(fileFromTrash.getPath()).toPath(),
+                    new File(fileFromTrash.getPath().replace("trash", "uploads")).toPath());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

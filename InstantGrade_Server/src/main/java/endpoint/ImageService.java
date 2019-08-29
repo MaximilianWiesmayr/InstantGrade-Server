@@ -48,9 +48,21 @@ public class ImageService {
     @Path("delete")
     public String delete(String jsonEditString){
         JSONObject jsonEdit = new JSONObject(jsonEditString);
-        String name = jsonEdit.getString("name");
+        String name = jsonEdit.getString("imageName");
         String owner = jsonEdit.getString("owner");
 
         return Repository.getInstance().delete(name, owner);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("recover")
+    public String recover(String jsonEditString) {
+        JSONObject jsonEdit = new JSONObject(jsonEditString);
+        String name = jsonEdit.getString("imageName");
+        String owner = jsonEdit.getString("owner");
+
+        return Repository.getInstance().recover(name, owner);
     }
 }
