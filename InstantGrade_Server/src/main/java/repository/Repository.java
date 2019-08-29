@@ -67,6 +67,7 @@ public final class Repository {
         return instance;
     }
 
+    // decryption for Token from Email authentication
     private static String decrypt(String encrypted) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
@@ -82,6 +83,24 @@ public final class Repository {
         }
     }
 
+    // encryption for Token from Email authentication
+    private static String encrypt(String value) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
+            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
+
+            byte[] encrypted = cipher.doFinal(value.getBytes());
+            return Base64.encodeBase64String(encrypted);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    // Email authentication for registration
     private void emailauth(User user) throws Exception {
 
         Properties props = new Properties();
@@ -112,14 +131,7 @@ public final class Repository {
 
     }
 
-    private class SMTPAuthenticator extends javax.mail.Authenticator {
-        public PasswordAuthentication getPasswordAuthentication() {
-            String username = "instantgrade@bastiarts.com";
-            String password = "6Tmv0?h4";
-            return new PasswordAuthentication(username, password);
-        }
-    }
-
+    // create new User with email authentication
     public String register(User user) {
         JSONObject jsonUser = new JSONObject();
 
@@ -157,6 +169,7 @@ public final class Repository {
         return jsonUser.toString();
     }
 
+    // login with jwt Token
     public String login(User user) {
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
@@ -199,22 +212,7 @@ public final class Repository {
     private static final String key = "aesEncryptionKey";
     private static final String initVector = "encryptionIntVec";
 
-    private static String encrypt(String value) {
-        try {
-            IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
-            SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
-
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-            cipher.init(Cipher.ENCRYPT_MODE, skeySpec, iv);
-
-            byte[] encrypted = cipher.doFinal(value.getBytes());
-            return Base64.encodeBase64String(encrypted);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
+    // verify user with verification Code
     public String verify(String verifivationCode) {
 
         JSONObject jsonstatus = new JSONObject();
@@ -237,6 +235,55 @@ public final class Repository {
         }
 
         return jsonstatus.toString();
+    }
+
+    /**
+     * @author Maximilian Wiesmayr
+     */
+    // uploads image to Server and Database
+    public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
+
+        JSONObject jsonImage = new JSONObject();
+
+        Document doc = new Document("factoryName", fileMetaData.getName());
+        doc.put("owner", owner);
+        Image tempI = imageCollection.find(doc).first();
+        String filepath = createFilepath(fileMetaData, owner);
+        File tempFile = new File(filepath);
+        if (tempI == null && !tempFile.exists()) {
+            try {
+                int read = 0;
+                byte[] bytes = new byte[1024];
+
+                OutputStream out = new FileOutputStream(tempFile);
+                while ((read = imageStream.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.getStackTrace();
+            }
+
+            Image newImage = new Image();
+            newImage.setFactoryName(fileMetaData.getFileName());
+            newImage.setOwner(owner);
+            newImage.setMetadata(getMetadata(tempFile));
+            newImage.setExtension("jpg");
+            newImage.setFilepath(filepath);
+            this.imageCollection.insertOne(newImage);
+
+            jsonImage.put("status", "success");
+            jsonImage.put("fileName", fileMetaData.getName());
+
+        } else {
+
+            jsonImage.put("status", "failed");
+            jsonImage.put("exception", "Image already exists in this directory");
+
+        }
+
+        return jsonImage.toString();
     }
 
     /**
@@ -311,54 +358,7 @@ public final class Repository {
         return ImageUtil.parseImageList(imageCollection.find(doc).into(new ArrayList<>()));
     }
 
-    /**
-     * @author Maximilian Wiesmayr
-     */
-    public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
-
-        JSONObject jsonImage = new JSONObject();
-
-        Document doc = new Document("factoryName", fileMetaData.getName());
-        doc.put("owner", owner);
-        Image tempI = imageCollection.find(doc).first();
-        String filepath = createFilepath(fileMetaData, owner);
-        File tempFile = new File(filepath);
-        if (tempI == null && !tempFile.exists()) {
-            try {
-                int read = 0;
-                byte[] bytes = new byte[1024];
-
-                OutputStream out = new FileOutputStream(tempFile);
-                while ((read = imageStream.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                e.getStackTrace();
-            }
-
-            Image newImage = new Image();
-            newImage.setFactoryName(fileMetaData.getFileName());
-            newImage.setOwner(owner);
-            newImage.setMetadata(getMetadata(tempFile));
-            newImage.setExtension("jpg");
-            newImage.setFilepath(filepath);
-            this.imageCollection.insertOne(newImage);
-
-            jsonImage.put("status", "success");
-            jsonImage.put("fileName", fileMetaData.getName());
-
-        } else {
-
-            jsonImage.put("status", "failed");
-            jsonImage.put("exception", "Image already exists in this directory");
-
-        }
-
-        return jsonImage.toString();
-    }
-
+    // creates Filepath for Imageupload
     private String createFilepath(FormDataContentDisposition fileMetaData, String owner) {
         File upload_dir = new File("uploads/" + owner);
         if (!upload_dir.exists()) {
@@ -370,6 +370,33 @@ public final class Repository {
         }
         return upload_dir.getPath() + "/" + fileMetaData.getFileName();
 
+    }
+
+    //deletes Image from Database and Server
+    public String delete(String name, String owner) {
+
+        JSONObject deleted = new JSONObject();
+
+        File file = new File("uploads/" + owner + "/" + name);
+
+        //  file.delete();
+
+        Document doc = new Document("filepath", "uploads/" + owner + "/" + name);
+        Image deletetone = imageCollection.findOneAndDelete(doc);
+        // TODO change DB - IMAGE Path to trash/{User}/...
+        if (deletetone == null && !moveFileToTrash(file, owner)) {
+
+            deleted.put("status", "failed")
+                    .put("exception", "Image doesn't exist");
+
+        } else {
+
+            deleted.put("status", "success")
+                    .put("fileName", name);
+
+        }
+
+        return deleted.toString();
     }
 
     /**
@@ -403,30 +430,13 @@ public final class Repository {
         return null;
     }
 
-    public String delete(String name, String owner) {
-
-        JSONObject deleted = new JSONObject();
-
-        File file = new File("uploads/" + owner + "/" + name);
-
-        //  file.delete();
-
-        Document doc = new Document("filepath", "uploads/" + owner + "/" + name);
-        Image deletetone = imageCollection.findOneAndDelete(doc);
-        // TODO change DB - IMAGE Path to trash/{User}/...
-        if (deletetone == null && !moveFileToTrash(file, owner)) {
-
-            deleted.put("status", "failed")
-                    .put("exception", "Image doesn't exist");
-
-        } else {
-
-            deleted.put("status", "success")
-                    .put("fileName", name);
-
+    //login for email sender for Email authentication
+    private class SMTPAuthenticator extends javax.mail.Authenticator {
+        public PasswordAuthentication getPasswordAuthentication() {
+            String username = "instantgrade@bastiarts.com";
+            String password = "6Tmv0?h4";
+            return new PasswordAuthentication(username, password);
         }
-
-        return deleted.toString();
     }
 
     public String recover(String filename, String owner) {
