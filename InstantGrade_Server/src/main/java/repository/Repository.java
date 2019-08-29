@@ -111,63 +111,6 @@ public final class Repository {
 
     }
 
-    public String edit(String oldName, String newName, String owner) {
-
-        JSONObject renamed = new JSONObject();
-
-
-        File file = new File("uploads/" + owner + "/" + oldName);
-
-        file.renameTo(new File("uploads/" + owner + "/" + newName));
-
-        Document doc = new Document("filepath", "uploads/" + owner + "/" + oldName);
-        Image newImage = imageCollection.findOneAndDelete(doc);
-        if(newImage == null){
-
-            renamed.put("status", "failed")
-                    .put("exception", "Image doesn't exist");
-
-        } else {
-
-            newImage.setCustomName(newName);
-            newImage.setFilepath("uploads/" + owner + "/" + newName);
-            this.imageCollection.insertOne(newImage);
-
-            renamed.put("status", "success")
-                    .put("fileName", newName);
-
-        }
-
-
-
-        return null;
-    }
-
-    public String delete(String name, String owner) {
-
-        JSONObject deleted = new JSONObject();
-
-        File file = new File("uploads/" + owner + "/" + name);
-
-        file.delete();
-
-        Document doc = new Document("filepath", "uploads/" + owner + "/" + name);
-        Image deletetone = imageCollection.findOneAndDelete(doc);
-        if(deletetone == null){
-
-            deleted.put("status", "failed")
-                    .put("exception", "Image doesn't exist");
-
-        } else {
-
-            deleted.put("status", "success")
-                    .put("fileName", name);
-
-        }
-
-        return deleted.toString();
-    }
-
     private class SMTPAuthenticator extends javax.mail.Authenticator {
         public PasswordAuthentication getPasswordAuthentication() {
             String username = "instantgrade@bastiarts.com";
@@ -457,6 +400,62 @@ public final class Repository {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        return null;
+    }
+
+    public String delete(String name, String owner) {
+
+        JSONObject deleted = new JSONObject();
+
+        File file = new File("uploads/" + owner + "/" + name);
+
+        file.delete();
+
+        Document doc = new Document("filepath", "uploads/" + owner + "/" + name);
+        Image deletetone = imageCollection.findOneAndDelete(doc);
+        if (deletetone == null) {
+
+            deleted.put("status", "failed")
+                    .put("exception", "Image doesn't exist");
+
+        } else {
+
+            deleted.put("status", "success")
+                    .put("fileName", name);
+
+        }
+
+        return deleted.toString();
+    }
+
+    public String edit(String oldName, String newName, String owner) {
+
+        JSONObject renamed = new JSONObject();
+
+
+        File file = new File("uploads/" + owner + "/" + oldName);
+
+        file.renameTo(new File("uploads/" + owner + "/" + newName));
+
+        Document doc = new Document("filepath", "uploads/" + owner + "/" + oldName);
+        Image newImage = imageCollection.findOneAndDelete(doc);
+        if (newImage == null) {
+
+            renamed.put("status", "failed")
+                    .put("exception", "Image doesn't exist");
+
+        } else {
+
+            newImage.setCustomName(newName);
+            newImage.setFilepath("uploads/" + owner + "/" + newName);
+            this.imageCollection.insertOne(newImage);
+
+            renamed.put("status", "success")
+                    .put("fileName", newName);
+
+        }
+
+
         return null;
     }
 }
