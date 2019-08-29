@@ -12,7 +12,6 @@ public class Image {
     private String filepath; // Absolute Path of the image (Future Folder-Structure: uploads/{username}/{image}.{extension} )
     // -= IMAGE SPECIFIC METADATA =-
     private String metadata; // Exif Metadata from library: https://drewnoakes.com/code/exif/
-
     public Image() {
     }
     public Image(String factoryName, String owner) {
