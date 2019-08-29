@@ -41,4 +41,16 @@ public class ImageService {
 
         return Repository.getInstance().edit(oldName, newName, owner);
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("delete")
+    public String delete(String jsonEditString){
+        JSONObject jsonEdit = new JSONObject(jsonEditString);
+        String name = jsonEdit.getString("name");
+        String owner = jsonEdit.getString("owner");
+
+        return Repository.getInstance().delete(name, owner);
+    }
 }
