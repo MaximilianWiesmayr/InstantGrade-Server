@@ -20,6 +20,7 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.json.JSONObject;
+import util.ImageUtil;
 import util.UserUtil;
 import util.jwt.JWTHelper;
 
@@ -307,7 +308,7 @@ public final class Repository {
 
         Document doc = new Document("owner", username);
 
-        return imageCollection.find().into(new ArrayList<Image>()).toString();
+        return ImageUtil.parseImageList(imageCollection.find(doc).into(new ArrayList<>()));
     }
 
     /**
