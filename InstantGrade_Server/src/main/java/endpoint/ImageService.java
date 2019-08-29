@@ -1,5 +1,6 @@
 package endpoint;
 
+import entity.Image;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import repository.Repository;
@@ -26,5 +27,14 @@ public class ImageService {
                               @FormDataParam("file") FormDataContentDisposition fileMetaData,
                               @FormDataParam("owner") String owner) {
         return Repository.getInstance().upload(fileInputStream, fileMetaData, owner);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("edit")
+    public String edit(Image image) {
+
+        return Repository.getInstance().edit(image);
     }
 }
