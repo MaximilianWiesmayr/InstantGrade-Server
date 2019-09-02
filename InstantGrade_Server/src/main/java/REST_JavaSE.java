@@ -3,6 +3,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import repository.Repository;
+import util.UserUtil;
 
 import java.io.IOException;
 import java.net.URI;
@@ -28,6 +29,7 @@ public class REST_JavaSE {
         
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
         Repository.getInstance().connectToDB();
+        UserUtil.initProperties();
         System.in.read();
         server.shutdownNow();
     }

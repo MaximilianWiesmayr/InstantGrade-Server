@@ -146,23 +146,7 @@ public final class Repository {
 
     }
 
-    private boolean moveFileToTrash(File fileToTrash, String owner) {
-        String trashPath = "trash/" + owner;
-        File trashFolder = new File(trashPath);
-        if (!trashFolder.exists()) {
-            trashFolder.mkdirs();
-            System.out.println("folder created");
-        }
-        System.out.println("ye");
-        try {
-            Files.move(fileToTrash.toPath(),
-                    new File(fileToTrash.getPath().replace("uploads", "trash")).toPath());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+
 
     // create new User with email authentication
     public String register(User user) {
@@ -210,7 +194,7 @@ public final class Repository {
         User tmpU = userCollection.find(doc).first();
         if (tmpU == null) {
             jsonUser.put("status", "failed");
-            jsonUser.put("exception", "User doesn't exist");
+            jsonUser.put("exception", "Invalid credentials");
         } else {
             if (tmpU.getAccountType() == AccountType.VERIFIED) {
                 // Generate the JWT Token
@@ -302,12 +286,11 @@ public final class Repository {
             newImage.setFactoryName(fileMetaData.getFileName());
             newImage.setOwner(owner);
             newImage.setMetadata(getMetadata(tempFile));
-            newImage.setExtension("jpg");
             newImage.setFilepath(filepath);
             this.imageCollection.insertOne(newImage);
 
             jsonImage.put("status", "success");
-            jsonImage.put("fileName", fileMetaData.getName());
+            jsonImage.put("fileName", newImage.getFactoryName());
 
         } else {
 
@@ -378,7 +361,7 @@ public final class Repository {
         JSONObject jso = new JSONObject();
         jso
                 .put("photos", UserUtil.countAllImagesFromUser(username, imageCollection))
-                .put("disc_space", UserUtil.calculateDiscSpace(username, imageCollection))
+                .put("disc_space", UserUtil.calculateDiscSpace(username, imageCollection) + " / " + UserUtil.getMaxDiscSpaceForUserGB(temp) + " GB")
                 .put("subscription", temp.getSubscriptionStatus().toString())
                 .put("notifications", 0);
         return jso.toString();
@@ -430,6 +413,24 @@ public final class Repository {
         }
 
         return deleted.toString();
+    }
+
+    private boolean moveFileToTrash(File fileToTrash, String owner) {
+        String trashPath = "trash/" + owner;
+        File trashFolder = new File(trashPath);
+        if (!trashFolder.exists()) {
+            trashFolder.mkdirs();
+            System.out.println("folder created");
+        }
+        System.out.println("ye");
+        try {
+            Files.move(fileToTrash.toPath(),
+                    new File(fileToTrash.getPath().replace("uploads", "trash")).toPath());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
