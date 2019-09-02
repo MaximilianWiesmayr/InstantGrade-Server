@@ -155,4 +155,7 @@ target/classes/filter/
 target/generated-sources/
 classes/
 uploads/*
+trash/*
 # src/main/resources/META-INF/MANIFEST.MF
+src/main/resources/config.properties
+log/

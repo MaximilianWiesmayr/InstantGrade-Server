@@ -2,6 +2,7 @@ import org.glassfish.grizzly.http.server.StaticHttpHandler;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import repository.Repository;
 
 import java.io.IOException;
 import java.net.URI;
@@ -26,6 +27,7 @@ public class REST_JavaSE {
         server.getServerConfiguration().addHttpHandler(new StaticHttpHandler("public"), "/");
         
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
+        Repository.getInstance().connectToDB();
         System.in.read();
         server.shutdownNow();
     }

@@ -46,12 +46,13 @@ public final class Repository {
 
     private List<User> users = new LinkedList<User>();
 
+
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
-    private MongoClient client = MongoClients.create("mongodb://<user>:<Pw>@instantgrade.bastiarts.com/?authSource=IG");
-    private MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-    private MongoCollection<User> userCollection = igDB.getCollection("userCollection", User.class);
-    private MongoCollection<Image> imageCollection = igDB.getCollection("imageCollection", Image.class);
+    private static MongoClient client;
+    private MongoDatabase igDB;
+    private MongoCollection<User> userCollection;
+    private MongoCollection<Image> imageCollection;
 
     private static Repository instance = null;
 
@@ -65,6 +66,20 @@ public final class Repository {
             instance = new Repository();
         }
         return instance;
+    }
+
+    public void connectToDB() {
+        // Set params for DB
+        Properties properties = new Properties();
+        try {
+            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":" + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com/?authSource=IG");
+        igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
+        userCollection = igDB.getCollection("userCollection", User.class);
+        imageCollection = igDB.getCollection("imageCollection", Image.class);
     }
 
     // decryption for Token from Email authentication
@@ -129,6 +144,24 @@ public final class Repository {
                 message.getRecipients(Message.RecipientType.TO));
         transport.close();
 
+    }
+
+    private boolean moveFileToTrash(File fileToTrash, String owner) {
+        String trashPath = "trash/" + owner;
+        File trashFolder = new File(trashPath);
+        if (!trashFolder.exists()) {
+            trashFolder.mkdirs();
+            System.out.println("folder created");
+        }
+        System.out.println("ye");
+        try {
+            Files.move(fileToTrash.toPath(),
+                    new File(fileToTrash.getPath().replace("uploads", "trash")).toPath());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // create new User with email authentication
@@ -430,14 +463,6 @@ public final class Repository {
         return null;
     }
 
-    //login for email sender for Email authentication
-    private class SMTPAuthenticator extends javax.mail.Authenticator {
-        public PasswordAuthentication getPasswordAuthentication() {
-            String username = "instantgrade@bastiarts.com";
-            String password = "6Tmv0?h4";
-            return new PasswordAuthentication(username, password);
-        }
-    }
 
     public String recover(String filename, String owner) {
         File file = new File("trash/" + owner + "/" + filename);
@@ -483,20 +508,12 @@ public final class Repository {
         return null;
     }
 
-
-    private boolean moveFileToTrash(File fileToTrash, String owner) {
-        String trashPath = "trash/" + owner;
-        File trashFolder = new File(trashPath);
-        if (!trashFolder.exists()) {
-            trashFolder.mkdirs();
-        }
-        try {
-            Files.move(fileToTrash.toPath(),
-                    new File(fileToTrash.getPath().replace("uploads", "trash")).toPath());
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+    //login for email sender for Email authentication
+    private class SMTPAuthenticator extends javax.mail.Authenticator {
+        public PasswordAuthentication getPasswordAuthentication() {
+            String username = "instantgrade@bastiarts.com";
+            String password = "6Tmv0?h4";
+            return new PasswordAuthentication(username, password);
         }
     }
 
