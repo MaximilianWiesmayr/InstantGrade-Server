@@ -146,7 +146,52 @@ public final class Repository {
 
     }
 
+    /**
+     * @author Maximilian Wiesmayr
+     */
+    // uploads image to Server and Database
+    public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
+        JSONObject jsonImage = new JSONObject();
 
+        Document doc = new Document("factoryName", fileMetaData.getName());
+        doc.put("owner", owner);
+        Image tempI = imageCollection.find(doc).first();
+        String filepath = createFilepath(fileMetaData, owner);
+        File tempFile = new File(filepath);
+        if (tempI == null && !tempFile.exists()) {
+            try {
+                int read = 0;
+                byte[] bytes = new byte[1024];
+
+                OutputStream out = new FileOutputStream(tempFile);
+                while ((read = imageStream.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                out.flush();
+                out.close();
+            } catch (IOException e) {
+                e.getStackTrace();
+            }
+
+            Image newImage = new Image();
+            newImage.setFactoryName(fileMetaData.getFileName());
+            newImage.setOwner(owner);
+            newImage.setMetadata(getMetadata(tempFile));
+            newImage.setFilepath(filepath);
+            this.imageCollection.insertOne(newImage);
+
+            jsonImage.put("status", "success");
+            jsonImage.put("fileName", newImage.getFactoryName());
+
+        } else {
+
+            jsonImage.put("status", "failed");
+            jsonImage.put("exception", "Image already exists in this directory");
+
+        }
+        return jsonImage.toString();
+
+    }
 
     // create new User with email authentication
     public String register(User user) {
@@ -254,52 +299,13 @@ public final class Repository {
         return jsonstatus.toString();
     }
 
-    /**
-     * @author Maximilian Wiesmayr
-     */
-    // uploads image to Server and Database
-    public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
-
-        JSONObject jsonImage = new JSONObject();
-
-        Document doc = new Document("factoryName", fileMetaData.getName());
-        doc.put("owner", owner);
-        Image tempI = imageCollection.find(doc).first();
-        String filepath = createFilepath(fileMetaData, owner);
-        File tempFile = new File(filepath);
-        if (tempI == null && !tempFile.exists()) {
-            try {
-                int read = 0;
-                byte[] bytes = new byte[1024];
-
-                OutputStream out = new FileOutputStream(tempFile);
-                while ((read = imageStream.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                e.getStackTrace();
-            }
-
-            Image newImage = new Image();
-            newImage.setFactoryName(fileMetaData.getFileName());
-            newImage.setOwner(owner);
-            newImage.setMetadata(getMetadata(tempFile));
-            newImage.setFilepath(filepath);
-            this.imageCollection.insertOne(newImage);
-
-            jsonImage.put("status", "success");
-            jsonImage.put("fileName", newImage.getFactoryName());
-
-        } else {
-
-            jsonImage.put("status", "failed");
-            jsonImage.put("exception", "Image already exists in this directory");
-
+    //login for email sender for Email authentication
+    private class SMTPAuthenticator extends javax.mail.Authenticator {
+        public PasswordAuthentication getPasswordAuthentication() {
+            String username = "instantgrade@bastiarts.com";
+            String password = "6Tmv0?h4";
+            return new PasswordAuthentication(username, password);
         }
-
-        return jsonImage.toString();
     }
 
     /**
@@ -446,8 +452,6 @@ public final class Repository {
             for (Directory directory : m.getDirectories()) {
                 for (Tag tag : directory.getTags()) {
                     metaObject.put(tag.getTagName(), tag.getDescription());
-                    //System.out.format("[%s] - %s = %s",
-                    //       directory.getName(), tag.getTagName(), tag.getDescription());
                 }
                 if (directory.hasErrors()) {
                     for (String error : directory.getErrors()) {
@@ -507,15 +511,6 @@ public final class Repository {
 
 
         return null;
-    }
-
-    //login for email sender for Email authentication
-    private class SMTPAuthenticator extends javax.mail.Authenticator {
-        public PasswordAuthentication getPasswordAuthentication() {
-            String username = "instantgrade@bastiarts.com";
-            String password = "6Tmv0?h4";
-            return new PasswordAuthentication(username, password);
-        }
     }
 
     private boolean recoverFileFromTrash(File fileFromTrash) {
