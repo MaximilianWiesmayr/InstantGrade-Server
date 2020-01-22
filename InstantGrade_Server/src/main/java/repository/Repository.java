@@ -185,13 +185,14 @@ public final class Repository {
 
 
             System.out.println(filepath);
-            /*try {
-                Process process = Runtime.getRuntime().exec("python -c \"import colorgrade;colorgrade.createThumbnail(\\\"" + filepath + "\\\")\"");
+
+            try {
+                Process process = Runtime.getRuntime().exec("python -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
                 process.waitFor();
                 System.out.println("createThumbnail");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
-            }*/
+            }
 
         } else {
 
