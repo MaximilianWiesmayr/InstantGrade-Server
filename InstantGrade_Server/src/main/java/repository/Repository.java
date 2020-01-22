@@ -417,20 +417,17 @@ public final class Repository {
         Image deletetone = imageCollection.findOneAndDelete(doc);
         // TODO change DB - IMAGE Path to trash/{User}/...
         if (deletetone == null && !moveFileToTrash(file, owner)) {
-
             deleted.put("status", "failed")
                     .put("exception", "Image doesn't exist");
-
         } else {
-
             deleted.put("status", "success")
                     .put("fileName", name);
-
         }
 
         return deleted.toString();
     }
 
+    // Moves Files to Trash
     private boolean moveFileToTrash(File fileToTrash, String owner) {
         String trashPath = "trash/" + owner;
         File trashFolder = new File(trashPath);

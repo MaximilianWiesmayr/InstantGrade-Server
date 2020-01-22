@@ -27,7 +27,6 @@ public class JWTHelper {
             // The algorithm used for the signature of the Token
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             JWTCreator.Builder builder = JWT.create();
-
             builder.withExpiresAt(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
                     .withIssuedAt(new Date(System.currentTimeMillis()))
                     .withSubject(username)
