@@ -183,6 +183,16 @@ public final class Repository {
             jsonImage.put("status", "success");
             jsonImage.put("fileName", newImage.getFactoryName());
 
+
+            System.out.println(filepath);
+            /*try {
+                Process process = Runtime.getRuntime().exec("python -c \"import colorgrade;colorgrade.createThumbnail(\\\"" + filepath + "\\\")\"");
+                process.waitFor();
+                System.out.println("createThumbnail");
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }*/
+
         } else {
 
             jsonImage.put("status", "failed");
@@ -506,6 +516,7 @@ public final class Repository {
 
             renamed.put("status", "success")
                     .put("fileName", newName);
+
 
         }
 
