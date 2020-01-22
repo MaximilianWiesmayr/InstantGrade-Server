@@ -2,9 +2,10 @@ from __future__ import print_function
 import rawpy
 import imageio
 import ntpath
+import os
 
 
-def createThumbnail(path):
+def createThumbnaill(path):
     with rawpy.imread(path) as raw:
         rgb = raw.postprocess()
     imagename = ntpath.basename(path).rsplit(".", 2)
