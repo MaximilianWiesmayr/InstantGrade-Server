@@ -187,8 +187,9 @@ public final class Repository {
 
 
             System.out.println(filepath);
+
             try {
-                Process process = Runtime.getRuntime().exec("python -c \"import createThumbnail;createThumbnail.createThumbnaill(\\\"" + filepath + "\\\")\"");
+                Process process = Runtime.getRuntime().exec("python -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
                 process.waitFor();
                 System.out.println("createThumbnail");
             } catch (IOException | InterruptedException e) {
@@ -208,7 +209,6 @@ public final class Repository {
     // create new User with email authentication
     public String register(User user) {
         JSONObject jsonUser = new JSONObject();
-
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
         User tmpU = userCollection.find(doc).first();
@@ -239,7 +239,6 @@ public final class Repository {
             jsonUser.put("exception", "User already exists");
 
         }
-
         return jsonUser.toString();
     }
 
@@ -334,7 +333,7 @@ public final class Repository {
                 .append("InstantGrade")
                 .append("</h1><br>")
                 .append("<h3>Activate your Account now!</h3>")
-                .append("<a href='http://localhost:4200/verify?id=" + verifyCode + "'>Activate now</a>")
+                .append("<a href='http://instantgrade.bastiarts.com:4200/verify?id=" + verifyCode + "'>Activate now</a>")
                 .append("<div style = 'position: absolute; bottom: 0; width: 100%; height: 50px;'>&copy; by Sebastian Schiefermayr</div>")
                 .append("</div>");
 

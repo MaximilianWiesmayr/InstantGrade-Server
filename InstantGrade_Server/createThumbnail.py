@@ -5,7 +5,7 @@ import ntpath
 import os
 
 
-def createThumbnaill(path):
+def generateThumbnail(path):
     with rawpy.imread(path) as raw:
         rgb = raw.postprocess()
     imagename = ntpath.basename(path).rsplit(".", 2)
