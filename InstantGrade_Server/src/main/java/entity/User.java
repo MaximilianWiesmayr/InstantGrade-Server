@@ -15,7 +15,7 @@ public class User {
     private String password;
     private Settings settings = new Settings();
     private int credits = 0;
-    private String ip;
+    private String ip = "";
     private Date lastSeen;
     private AccountType accountType = AccountType.NOT_VERIFIED;
     private SubscriptionStatus subscriptionStatus = SubscriptionStatus.BASIC;
