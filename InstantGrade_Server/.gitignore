@@ -159,3 +159,4 @@ trash/*
 # src/main/resources/META-INF/MANIFEST.MF
 src/main/resources/config.properties
 log/
+/target/
