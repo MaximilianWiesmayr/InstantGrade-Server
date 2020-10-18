@@ -30,4 +30,18 @@ public class ClientAreaService {
     public String getPhotos(@NotNull @PathParam("username") String username) {
         return Repository.getInstance().getPhotos(username);
     }
+
+    // Loads the photos
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("photos/{username}/{imagename}")
+    public String downloadImage(@NotNull @PathParam("imagename") String imagename, @NotNull @PathParam("username") String username) {
+        return Repository.getInstance().downloadImage(imagename, username);
+    }
+
+
+
+
+
+
 }

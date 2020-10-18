@@ -30,8 +30,6 @@ public class User {
             String email,
             Settings settings,
             int credits,
-            String ip,
-            Date lastSeen,
             AccountType accountType,
             SubscriptionStatus subscriptionStatus,
             String authToken
@@ -44,8 +42,6 @@ public class User {
         this.email = email;
         this.settings = settings;
         this.credits = credits;
-        this.ip = ip;
-        this.lastSeen = lastSeen;
         this.accountType = accountType;
         this.subscriptionStatus = subscriptionStatus;
         this.authToken = authToken;

@@ -12,7 +12,7 @@ import java.net.URI;
 public class REST_JavaSE {
   
     // Basis URI 
-    public static final String BASE_URI = "http://0.0.0.0:8080/api";
+    public static final String BASE_URI = "http://localhost:8080/api";
 
     public static org.glassfish.grizzly.http.server.HttpServer startServer() {
         // Im Package "endpoint" alle Klassen durchsuchen, um REST Services zu finden

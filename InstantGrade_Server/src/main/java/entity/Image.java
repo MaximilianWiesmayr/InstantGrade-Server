@@ -10,6 +10,8 @@ public class Image {
     private String owner; // The User, who took the picture (username)
     private String extension; // Image Extension (JPG, PNG, RAW)
     private String filepath; // Absolute Path of the image (Future Folder-Structure: uploads/{username}/{image}.{extension} )
+    private String thumbnailPath; // Thumbnail Path of the image
+
     // -= IMAGE SPECIFIC METADATA =-
     private String metadata; // Exif Metadata from library: https://drewnoakes.com/code/exif/
     public Image() {
@@ -65,5 +67,13 @@ public class Image {
 
     public void setMetadata(String metadata) {
         this.metadata = metadata;
+    }
+
+    public String getThumbnailPath() {
+        return thumbnailPath;
+    }
+
+    public void setThumbnailPath(String thumbnailPath) {
+        this.thumbnailPath = thumbnailPath;
     }
 }

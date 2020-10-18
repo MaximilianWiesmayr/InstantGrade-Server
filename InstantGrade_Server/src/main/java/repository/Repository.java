@@ -14,6 +14,7 @@ import entity.Image;
 import entity.User;
 import enums.AccountType;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FilenameUtils;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -76,7 +77,7 @@ public final class Repository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":" + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com/?authSource=IG");
+        client = MongoClients.create("mongodb://localhost:27017/?readPreference=primary&ssl=false");
         igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
         userCollection = igDB.getCollection("userCollection", User.class);
         imageCollection = igDB.getCollection("imageCollection", Image.class);
@@ -177,24 +178,63 @@ public final class Repository {
             newImage.setFactoryName(fileMetaData.getFileName());
             newImage.setOwner(owner);
             newImage.setMetadata(getMetadata(tempFile));
-            String pathwithoutextension = FilenameUtils.getBaseName(filepath);
-            newImage.setFilepath(pathwithoutextension + ".jpg");
-
-            this.imageCollection.insertOne(newImage);
-
-            jsonImage.put("status", "success");
-            jsonImage.put("fileName", newImage.getFactoryName());
-
-
-            System.out.println(filepath);
 
             try {
                 Process process = Runtime.getRuntime().exec("python -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
                 process.waitFor();
+                BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String line;
+                while ((line = bri.readLine()) != null) {
+                    System.out.println(line);
+                }
+                bri.close();
+                while ((line = bre.readLine()) != null) {
+                    System.out.println(line);
+                }
+                bre.close();
+                process.waitFor();
                 System.out.println("createThumbnail");
+                String pathwithoutfile = FilenameUtils.getPath(filepath);
+                System.out.println(pathwithoutfile);
+                String filename = FilenameUtils.getName(filepath);
+                System.out.println(filename);
+                filename = filename.split("\\.", 2)[0];
+                System.out.println(filename);
+                newImage.setThumbnailPath(pathwithoutfile + "thumbnail/" + filename + "_thumb.jpg");
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
+
+            /*try {
+                Process process = Runtime.getRuntime().exec("python -c \"import createThumbnail;createThumbnail.generaterealThumbnail(\\\"" + "./" + filepath + "\\\")\"");
+                process.waitFor();
+                BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String line;
+                while ((line = bri.readLine()) != null) {
+                    System.out.println(line);
+                }
+                bri.close();
+                while ((line = bre.readLine()) != null) {
+                    System.out.println(line);
+                }
+                bre.close();
+                process.waitFor();
+                System.out.println("createThumbnail");
+                String pathwithoutfile = FilenameUtils.getPath(filepath);
+                System.out.println(pathwithoutfile);
+                String filename = FilenameUtils.getName(filepath);
+                newImage.setThumbnailPath(pathwithoutfile + "/thumbnail/" + filename + "_small.jpg");
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }*/
+            System.out.println(filepath);
+            newImage.setFilepath(filepath);
+            this.imageCollection.insertOne(newImage);
+
+            jsonImage.put("status", "success");
+            jsonImage.put("fileName", newImage.getFactoryName());
 
         } else {
 
@@ -208,10 +248,12 @@ public final class Repository {
 
     // create new User with email authentication
     public String register(User user) {
+        System.out.println(user.getUsername() + " " + user.getEmail());
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
         User tmpU = userCollection.find(doc).first();
+        System.out.println("hi2");
         if (tmpU == null) {
 
             try {
@@ -232,6 +274,7 @@ public final class Repository {
             this.userCollection.insertOne(newUser);
             jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
+            System.out.println("hi3");
 
         } else {
 
@@ -308,6 +351,10 @@ public final class Repository {
         }
 
         return jsonstatus.toString();
+    }
+
+    public String downloadImage(String imagename, String username) {
+        return null;
     }
 
     //login for email sender for Email authentication

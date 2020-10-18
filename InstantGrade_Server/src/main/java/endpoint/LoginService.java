@@ -16,6 +16,7 @@ public class LoginService {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("register")
     public String register(User user){
+        System.out.println("hi00");
         return Repository.getInstance().register(user);
 
     }
