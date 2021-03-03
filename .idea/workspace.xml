@@ -1,47 +1,319 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96ca04e4-759e-4dd4-83c4-44be5282f53a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/InstantGrade_Server/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="editfile">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/.clang-format" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/COPYRIGHT" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Changelog.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/DEVELOPER-NOTES" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/GoPro/dng-sdk-allow-VC5-validate.diff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/GoPro/gpr_read_image.cpp.diff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/GoPro/gpr_read_image.h.diff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/INSTALL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/LICENSE.CDDL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/LICENSE.LGPL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/LibRaw.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/LibRaw.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.am" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.devel.nopp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.devel.noppr2i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.dist" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.mingw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/Makefile.msvc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/README.DNGSDK.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/README.GoPro.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/README.RawSpeed.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/README.cmake" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/README.demosaic-packs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/RawSpeed/rawspeed.cpucount-unix.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/RawSpeed/rawspeed.qmake-pro-files.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/RawSpeed/rawspeed.uncompressed-color-dng.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/RawSpeed/rawspeed.win32-dll.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/RawSpeed/rawspeed_xmldata.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/aclocal.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/output.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/output.1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/output.2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/requests" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/traces.0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/traces.1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/autom4te.cache/traces.2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/.keep_me" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/4channels.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/dcraw_emu.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/dcraw_half.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/half_mt.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/libraw.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/mem_image.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/multirender_test.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/openbayer_sample.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/postprocessing_benchmark.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/raw-identify.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/rawtextdump.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/simple_dcraw.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/bin/unprocessed_raw.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/4channels.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/4channels.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/4channels.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/dcraw_emu.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/dcraw_emu.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/dcraw_emu.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/dcraw_half.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/dcraw_half.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/dcraw_half.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/half_mt.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/libraw-common-lib.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/libraw-common.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/libraw.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/libraw.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/libraw.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/mem_image.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/mem_image.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/mem_image.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/multirender_test.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/multirender_test.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/multirender_test.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/openbayer_sample.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/openbayer_sample.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/openbayer_sample.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/postprocessing_benchmark.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/postprocessing_benchmark.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/postprocessing_benchmark.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/raw-identify.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/raw-identify.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/raw-identify.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/rawtextdump.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/rawtextdump.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/rawtextdump.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/simple_dcraw.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/simple_dcraw.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/simple_dcraw.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/unprocessed_raw.pro" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/unprocessed_raw.vcxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/buildfiles/unprocessed_raw.vcxproj.filters" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/compile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/config.guess" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/config.sub" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/configure" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/configure.ac" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/dcraw/dcraw.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/depcomp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/API-C.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/API-CXX.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/API-datastruct.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/API-notes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/API-overview.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/Install-LibRaw.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/Samples-LibRaw.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/Why-LibRaw.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/doc/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/install-sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/dcraw_common.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/dcraw_defs.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/dcraw_fileio.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/dcraw_fileio_defs.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/defines.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/demosaic_packs.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/dmp_include.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/libraw_cameraids.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/libraw_cxx_defs.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/libraw_internal_funcs.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/var_defines.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/internal/x3f_tools.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/lib/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/lib/libraw.exp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/lib/libraw.lib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/lib/libraw_static.lib" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw.pc.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw_alloc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw_const.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw_datastream.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw_internal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw_types.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw/libraw_version.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/libraw_r.pc.in" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/ltmain.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/m4/ax_openmp.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/m4/libtool.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/m4/ltoptions.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/m4/ltsugar.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/m4/ltversion.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/m4/lt~obsolete.m4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/missing" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/object/.keep_me" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/rsxml2c.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/4channels.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/dcraw_emu.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/dcraw_half.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/half_mt.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/half_mt_win32.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/mem_image_sample.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/multirender_test.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/openbayer_sample.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/postprocessing_benchmark.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/raw-identify.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/rawtextdump.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/simple_dcraw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/samples/unprocessed_raw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/shlib-version.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/canon_600.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/crx.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/decoders_dcraw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/decoders_libraw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/decoders_libraw_dcrdefs.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/dng.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/fp_dng.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/fuji_compressed.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/generic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/kodak_decoders.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/load_mfbacks.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/smal.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/unpack.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/decoders/unpack_thumb.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/demosaic/aahd_demosaic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/demosaic/ahd_demosaic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/demosaic/dcb_demosaic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/demosaic/dht_demosaic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/demosaic/misc_demosaic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/demosaic/xtrans_demosaic.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/integration/dngsdk_glue.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/integration/rawspeed_glue.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/libraw_c_api.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/libraw_cxx.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/libraw_datastream.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/adobepano.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/canon.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/ciff.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/cr3_parser.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/epson.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/exif_gps.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/fuji.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/hasselblad_model.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/identify.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/identify_tools.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/kodak.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/leica.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/makernotes.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/mediumformat.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/minolta.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/misc_parsers.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/nikon.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/normalize_model.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/olympus.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/p1.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/pentax.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/samsung.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/sony.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/metadata/tiff.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/aspect_ratio.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/dcraw_process.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/mem_image.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/postprocessing_aux.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/postprocessing_ph.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/postprocessing_utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/postprocessing/postprocessing_utils_dcrdefs.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/preprocessing/ext_preprocess.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/preprocessing/preprocessing_ph.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/preprocessing/raw2image.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/preprocessing/subtract_black.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/tables/cameralist.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/tables/colorconst.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/tables/colordata.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/tables/wblists.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/curves.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/decoder_info.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/init_close_utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/open.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/phaseone_processing.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/read_utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/thumb_utils.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/utils_dcraw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/utils/utils_libraw.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/write/apply_profile.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/write/file_write.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/write/tiff_writer.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/write/write_ph.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/x3f/x3f_parse_process.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/src/x3f/x3f_utils_patched.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LibRaw-0.20.2/version.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/createThumbnail.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/uploads/Tadeot/blackbird.nef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/InstantGrade-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade_Server/InstantGrade-Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/createThumbnail.py" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade_Server/createThumbnail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/endpoint/ClientAreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/endpoint/ClientAreaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/entity/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/entity/Image.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/repository/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/target/classes/endpoint/LoginService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/target/classes/entity/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/target/classes/repository/Repository$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/target/classes/repository/Repository$SMTPAuthenticator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/target/classes/repository/Repository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/artifacts/InstantGrade_Server_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/InstantGrade_Server_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/InstantGrade-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade-Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/createThumbnail.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/nbactions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/nbactions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/rest.csv" beforeDir="false" afterPath="$PROJECT_DIR$/rest.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/REST_JavaSE.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/REST_JavaSE.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/endpoint/ClientAreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/endpoint/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/endpoint/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/entity/Image.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/Image.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/entity/Settings.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/Settings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/enums/AccountType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/enums/AccountType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/enums/SubscriptionStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/enums/SubscriptionStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/filter/HttpResponseFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/HttpResponseFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/filter/JWTFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/JWTFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/util/DailyCronCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DailyCronCheck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/util/DeletionJob.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DeletionJob.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/util/ImageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ImageUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/util/SystemUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/SystemUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/util/UserUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/UserUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/java/util/jwt/JWTHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/jwt/JWTHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade_Server/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
-  </component>
-  <component name="FileColors">
-    <fileColor scope="Non-Project Files (Material Default)" color="2E3C43" />
-    <fileColor scope="Non-Project Files (Material Darker)" color="323232" />
-    <fileColor scope="Non-Project Files (Material Lighter)" color="eae8e8" />
-    <fileColor scope="Non-Project Files (Material Palenight)" color="2f2e43" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
     </option>
+    <expand />
+    <select />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="master" />
+        <entry key="$PROJECT_DIR$" value="imageupload" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="MERGE" />
   </component>
-  <component name="ProjectId" id="1VZ5CGU6ztXJBjQ6r9kWYcew26e" />
+  <component name="ProjectId" id="1Y7pV0wAQkqawNWChNJVHdw6mL6" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,74 +321,47 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mongo" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/InstantGrade_Server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\maxim\Desktop\Schulordner\5AHITM\Diplomarbeit\Server\InstantGrade_Server" />
+      <recent name="C:\Users\maxim\Desktop\Schulordner\InstantGrade_Server\InstantGrade_Server" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\maxim\Desktop\Schulordner\Diplomarbeit\InstandGrade_Server\InstantGrade_Server" />
+      <recent name="C:\Users\maxim\Desktop\Schulordner\5AHITM\Diplomarbeit\Server\InstantGrade_Server" />
+      <recent name="C:\Users\maxim\Desktop\Schulordner\InstantGrade_Server\InstantGrade_Server\public" />
+      <recent name="C:\Users\maxim\Desktop\Schulordner\InstantGrade_Server\InstantGrade_Server\src\main\resources" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+    <configuration name="REST_JavaSE" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="REST_JavaSE" />
       <module name="InstantGrade-Server" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <module name="InstantGrade-Server" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.REST_JavaSE" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -129,81 +374,188 @@
         </serviceView>
       </list>
     </option>
+    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="96ca04e4-759e-4dd4-83c4-44be5282f53a" name="Default Changelist" comment="lol" />
-      <created>1565427364616</created>
+      <changelist id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="" />
+      <created>1582303506501</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1565427364616</updated>
-      <workItem from="1565427368304" duration="399000" />
-      <workItem from="1577447651819" duration="1637000" />
-      <workItem from="1577958588088" duration="1246000" />
-      <workItem from="1578509655773" duration="1040000" />
-      <workItem from="1578553169456" duration="666000" />
-      <workItem from="1578572766073" duration="1898000" />
-      <workItem from="1578653306694" duration="717000" />
-      <workItem from="1578766111976" duration="1775000" />
-      <workItem from="1578820817646" duration="1485000" />
-      <workItem from="1578907657511" duration="25000" />
-      <workItem from="1579358918272" duration="2237000" />
-      <workItem from="1579505179463" duration="154000" />
-      <workItem from="1579713809250" duration="1665000" />
-      <workItem from="1579721302720" duration="5887000" />
-      <workItem from="1582303472746" duration="34000" />
-      <workItem from="1582787794901" duration="2892000" />
-      <workItem from="1582790724214" duration="112000" />
-      <workItem from="1583156707745" duration="243000" />
-      <workItem from="1595684752577" duration="231000" />
+      <updated>1582303506501</updated>
+      <workItem from="1582303507773" duration="52000" />
+      <workItem from="1582303569305" duration="1517000" />
+      <workItem from="1582366182971" duration="2185000" />
+      <workItem from="1582684960526" duration="59000" />
+      <workItem from="1582790838421" duration="3096000" />
+      <workItem from="1583156952267" duration="1743000" />
+      <workItem from="1583227628426" duration="1825000" />
+      <workItem from="1583346135241" duration="275000" />
+      <workItem from="1583836139150" duration="1800000" />
+      <workItem from="1584176522806" duration="12656000" />
+      <workItem from="1584195064331" duration="9147000" />
+      <workItem from="1584439179210" duration="1337000" />
+      <workItem from="1585902186945" duration="774000" />
+      <workItem from="1589616967165" duration="775000" />
+      <workItem from="1589905672876" duration="42000" />
+      <workItem from="1594480219249" duration="1182000" />
+      <workItem from="1594988320456" duration="599000" />
+      <workItem from="1595684985239" duration="4960000" />
+      <workItem from="1595937094788" duration="650000" />
+      <workItem from="1596038950246" duration="3243000" />
+      <workItem from="1598695441089" duration="6013000" />
+      <workItem from="1599922280370" duration="599000" />
+      <workItem from="1600965749062" duration="10831000" />
+      <workItem from="1601486440058" duration="599000" />
+      <workItem from="1601718459925" duration="610000" />
+      <workItem from="1601808273487" duration="3964000" />
+      <workItem from="1601913172129" duration="4972000" />
+      <workItem from="1601997840991" duration="3919000" />
+      <workItem from="1602086682083" duration="1811000" />
+      <workItem from="1602177183605" duration="3680000" />
+      <workItem from="1602324282589" duration="8351000" />
+      <workItem from="1602511833799" duration="3439000" />
+      <workItem from="1602603996590" duration="776000" />
+      <workItem from="1602923191822" duration="23000" />
+      <workItem from="1602923226431" duration="13203000" />
+      <workItem from="1603028746021" duration="13796000" />
+      <workItem from="1603299816786" duration="6383000" />
+      <workItem from="1603538604867" duration="1196000" />
+      <workItem from="1603714555807" duration="20503000" />
+      <workItem from="1604591507686" duration="1196000" />
+      <workItem from="1604681126376" duration="5124000" />
+      <workItem from="1605115817132" duration="1957000" />
+      <workItem from="1605262213198" duration="3752000" />
+      <workItem from="1605721296748" duration="6305000" />
+      <workItem from="1606227312980" duration="5127000" />
+      <workItem from="1606404881095" duration="423000" />
+      <workItem from="1606405756790" duration="6262000" />
+      <workItem from="1606926228698" duration="1680000" />
+      <workItem from="1607016708163" duration="598000" />
+      <workItem from="1607162725616" duration="23223000" />
+      <workItem from="1607782461441" duration="1801000" />
+      <workItem from="1608282345704" duration="6984000" />
+      <workItem from="1609407278336" duration="599000" />
+      <workItem from="1609670486951" duration="2841000" />
+      <workItem from="1610104913474" duration="4047000" />
+      <workItem from="1610350247550" duration="11407000" />
+      <workItem from="1610467427659" duration="1249000" />
+      <workItem from="1611400261680" duration="7391000" />
+      <workItem from="1611827827706" duration="1212000" />
+      <workItem from="1611874674738" duration="27628000" />
+      <workItem from="1612120594481" duration="3570000" />
+      <workItem from="1612194121233" duration="5730000" />
+      <workItem from="1612218304652" duration="599000" />
+      <workItem from="1613125931360" duration="595000" />
+      <workItem from="1613307254554" duration="44893000" />
+      <workItem from="1613487385499" duration="5058000" />
+      <workItem from="1613748998854" duration="1511000" />
+      <workItem from="1613905978262" duration="4855000" />
+      <workItem from="1613927441602" duration="682000" />
+      <workItem from="1614080287690" duration="2868000" />
+      <workItem from="1614088695108" duration="3276000" />
+      <workItem from="1614417837025" duration="1994000" />
+      <workItem from="1614425588467" duration="23175000" />
+      <workItem from="1614579963136" duration="15515000" />
+      <workItem from="1614757205919" duration="1407000" />
     </task>
-    <task id="LOCAL-00001" summary="added creating thumbnail">
-      <created>1579714839750</created>
+    <task id="LOCAL-00001" summary="fixed thumbnails">
+      <created>1603043950451</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1579714839750</updated>
+      <updated>1603043950451</updated>
     </task>
-    <task id="LOCAL-00002" summary="added creating thumbnail">
-      <created>1579714860009</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1579714860009</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added creating thumbnail" />
-    <option name="LAST_COMMIT_MESSAGE" value="added creating thumbnail" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+    <MESSAGE value="hehe" />
+    <MESSAGE value="yesuu" />
+    <MESSAGE value="fixed thumbnails" />
+    <MESSAGE value="editfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="editfile" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1595684982388">
+    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser" timestamp="1614534620172">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1595684982388" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+    <state x="765" y="203" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614534620172" />
+    <state x="-1213" y="252" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1610399147896">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1213" y="252" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610399147896" />
+    <state x="366" y="114" key="CommitChangelistDialog2" timestamp="1614619881162">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="366" y="114" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614619881162" />
+    <state x="686" y="211" key="FileChooserDialogImpl" timestamp="1614760124835">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1234" y="211" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610399139726" />
+    <state x="686" y="211" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614760124835" />
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom" timestamp="1614760602469">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1613417892670" />
+    <state width="1877" height="220" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614760602469" />
+    <state width="1877" height="220" key="GridCell.Tab.0.center" timestamp="1614760602468">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1613417892670" />
+    <state width="1877" height="220" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614760602468" />
+    <state width="1877" height="220" key="GridCell.Tab.0.left" timestamp="1614760602468">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1613417892669" />
+    <state width="1877" height="220" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614760602468" />
+    <state width="1877" height="220" key="GridCell.Tab.0.right" timestamp="1614760602468">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1613417892670" />
+    <state width="1877" height="220" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614760602468" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1607452992541">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1607452992541" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1607452992540">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1607452992540" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1607452992540">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1607452992540" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1607452992540">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1607452992540" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1611911192763">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1459" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610399280598" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1611911192763" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1614619755425">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614619755425" />
+    <state x="581" y="298" key="com.intellij.ide.util.TipDialog" timestamp="1614760119536">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1339" y="298" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@-1920.0.1920.1040" timestamp="1610350247509" />
+    <state x="581" y="298" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1614760119536" />
+    <state x="623" y="225" key="search.everywhere.popup" timestamp="1610398246744">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1610398246744" />
   </component>
 </project>
