@@ -1,10 +1,18 @@
 package util;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
 import entity.Image;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 /**
@@ -51,6 +59,75 @@ public class ImageUtil {
                     }
                 }
             }
+        }
+    }
+
+    // creates Filepath for Imageupload
+    public static String createFilepath(FormDataContentDisposition fileMetaData, String owner) {
+        File upload_dir = new File("uploads/" + owner);
+        if (!upload_dir.exists()) {
+            if (upload_dir.mkdirs()) {
+                System.out.println("Directory " + upload_dir.getPath() + " successfully created!");
+            } else {
+                System.out.println("Directory could not been created.");
+            }
+        }
+        return "uploads/" + owner + "/" + fileMetaData.getFileName();
+
+    }
+
+    // Moves Files to Trash
+    public static boolean moveFileToTrash(File fileToTrash, String owner) {
+        String trashPath = "trash/" + owner;
+        File trashFolder = new File(trashPath);
+        if (!trashFolder.exists()) {
+            trashFolder.mkdirs();
+            System.out.println("folder created");
+        }
+        System.out.println("ye");
+        try {
+            Files.move(fileToTrash.toPath(),
+                    new File(fileToTrash.getPath().replace("uploads", "trash")).toPath());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String getMetadata(File file) {
+        try {
+            Metadata m = ImageMetadataReader.readMetadata(file);
+
+
+            JSONObject metaObject = new JSONObject();
+            for (Directory directory : m.getDirectories()) {
+                for (Tag tag : directory.getTags()) {
+                    metaObject.put(tag.getTagName(), tag.getDescription());
+                }
+                if (directory.hasErrors()) {
+                    for (String error : directory.getErrors()) {
+                        System.err.format("ERROR: %s", error);
+                    }
+                }
+            }
+            return metaObject.toString();
+        } catch (ImageProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public static boolean recoverFileFromTrash(File fileFromTrash) {
+        try {
+            Files.move(new File(fileFromTrash.getPath()).toPath(),
+                    new File(fileFromTrash.getPath().replace("trash", "uploads")).toPath());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }

@@ -72,11 +72,4 @@ public class ImageService {
 
         return Repository.getInstance().recover(name, owner);
     }
-
-    /*@GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("photos/{thumbnailPath}")
-    public String getPhotos(@NotNull @PathParam("thumbnailPath") String thumbnailPath) {
-        return Repository.getInstance().getPhoto(thumbnailPath);
-    }*/
 }

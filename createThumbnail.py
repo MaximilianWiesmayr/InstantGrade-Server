@@ -23,6 +23,15 @@ def generateThumbnail(path=arg2):
     print(savepath)
     imageio.imsave(savepath, thumb)
 
+def delete(path=arg2):
+    imagename = ntpath.basename(path).rsplit(".", 2)
+    deletepath = ntpath.dirname(path) + "/thumbnail/" + imagename[0] + "_thumb.jpg"
+    print(deletepath)
+    os.remove(path)
+    os.remove(deletepath)
+
 
 if arg1 == "thumb":
     generateThumbnail()
+elif arg1 == "delete":
+    delete()

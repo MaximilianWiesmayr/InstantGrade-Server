@@ -48,15 +48,6 @@ public class LoginService {
 
     }
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("test")
-    public String test(){
-
-        return Repository.getInstance().test();
-
-    }
-
 
 
 

@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/InstantGrade_GradingServer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/InstantGrade_Server/InstantGrade_GradingServer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/InstantGrade_Server/otherServer" vcs="Git" />
   </component>
 </project>
