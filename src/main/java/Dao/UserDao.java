@@ -3,7 +3,7 @@ package Dao;
 import Interfaces.MongoInterface;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import entity.Image;
+import com.mongodb.client.MongoDatabase;
 import entity.User;
 import org.bson.Document;
 
@@ -19,9 +19,16 @@ public class UserDao implements MongoInterface<User> {
 
     }
 
+    public void init(MongoDatabase igDB) {
+        userCollection = igDB.getCollection("userCollection", User.class);
+    }
+
     @Override
     public User findOne(Document doc) {
-        return userCollection.find(doc).first();
+        System.out.println("hellow");
+        User testuser = userCollection.find(doc).first();
+        System.out.println(testuser);
+        return testuser;
     }
 
     @Override

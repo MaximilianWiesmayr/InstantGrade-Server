@@ -48,8 +48,8 @@ public final class Repository implements RepositoryInterface {
     private MongoCollection<User> userCollection;
     private MongoCollection<Image> imageCollection;
 
-    private static ImageDao imageDao;
-    private static UserDao userDao;
+    private static ImageDao imageDao = new ImageDao();
+    private static UserDao userDao = new UserDao();
     private static Repository instance = null;
 
     private JWTHelper jwth = new JWTHelper();
@@ -76,8 +76,8 @@ public final class Repository implements RepositoryInterface {
                 + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
 
         igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-        userCollection = igDB.getCollection("userCollection", User.class);
-        imageCollection = igDB.getCollection("imageCollection", Image.class);
+        userDao.init(igDB);
+        imageDao.init(igDB);
     }
 
     /**
@@ -174,8 +174,8 @@ public final class Repository implements RepositoryInterface {
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
-        User tmpU = userDao.findOne(doc);
         System.out.println("hi2");
+        User tmpU = userDao.findOne(doc);
         if (tmpU == null) {
 
             try {

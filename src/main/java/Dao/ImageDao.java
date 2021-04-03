@@ -3,6 +3,7 @@ package Dao;
 import Interfaces.MongoInterface;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import entity.Image;
 import entity.User;
 import org.bson.Document;
@@ -16,6 +17,10 @@ public class ImageDao implements MongoInterface<Image> {
     private List<Image> images = new ArrayList<>();
 
     public ImageDao(){
+    }
+
+    public void init(MongoDatabase igDB) {
+        imageCollection = igDB.getCollection("imageCollection", Image.class);
     }
 
     @Override
