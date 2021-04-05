@@ -76,8 +76,8 @@ public final class Repository implements RepositoryInterface {
                 + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
 
         igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-        userDao.init(igDB);
-        imageDao.init(igDB);
+        userCollection = igDB.getCollection("userCollection", User.class);
+        imageCollection = igDB.getCollection("imageCollection", Image.class);
     }
 
     /**
@@ -89,7 +89,7 @@ public final class Repository implements RepositoryInterface {
 
         Document doc = new Document("factoryName", fileMetaData.getName());
         doc.put("owner", owner);
-        Image tempI = imageDao.findOne(doc);
+        Image tempI = imageDao.findOne(doc, imageCollection);
         String filepath = ImageUtil.createFilepath(fileMetaData, owner);
         File tempFile = new File(filepath);
         if (tempI == null && !tempFile.exists()) {
@@ -118,7 +118,7 @@ public final class Repository implements RepositoryInterface {
             newImage.setOwner(owner);
             newImage.setMetadata(ImageUtil.getMetadata(tempFile));
             Document doc2 = new Document("username", owner);
-            User newUser = userDao.findOne(doc2);
+            User newUser = userDao.findOne(doc2, userCollection);
             newUser.getImageFactoryName().add(newImage.getFactoryName());
             System.out.println("Path control: " + filepath);
             try {
@@ -153,7 +153,7 @@ public final class Repository implements RepositoryInterface {
             newImage.setFilepath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/" + filename + "." + fileextension);
             System.out.println(newImage.getFilepath());
             System.out.println(newImage.getThumbnailPath());
-            imageDao.insertOne(newImage);
+            imageDao.insertOne(newImage, imageCollection);
 
             jsonImage.put("status", "success");
             jsonImage.put("fileName", newImage.getFactoryName());
@@ -175,7 +175,7 @@ public final class Repository implements RepositoryInterface {
         Document doc = new Document("username", user.getUsername());
         doc.put("email", user.getEmail());
         System.out.println("hi2");
-        User tmpU = userDao.findOne(doc);
+        User tmpU = userDao.findOne(doc, userCollection);
         if (tmpU == null) {
 
             try {
@@ -193,7 +193,7 @@ public final class Repository implements RepositoryInterface {
             newUser.setLastname(user.getLastname());
             newUser.setEmail(user.getEmail());
             newUser.setPassword(user.getPassword());
-            userDao.insertOne(newUser);
+            userDao.insertOne(newUser, userCollection);
             jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
             System.out.println("hi3");
@@ -212,7 +212,7 @@ public final class Repository implements RepositoryInterface {
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
         doc.put("password", user.getPassword());
-        User tmpU = userDao.findOne(doc);
+        User tmpU = userDao.findOne(doc, userCollection);
         if (tmpU == null) {
             jsonUser.put("status", "failed");
             jsonUser.put("exception", "Invalid credentials");
@@ -248,13 +248,13 @@ public final class Repository implements RepositoryInterface {
             return jsonstatus.toString();
         }
         Document doc = new Document("username", username);
-        User user = userDao.findOne(doc);
-        if (userDao.findOne(doc) == null) {
+        User user = userDao.findOne(doc, userCollection);
+        if (userDao.findOne(doc, userCollection) == null) {
             jsonstatus.put("status", "fail");
             jsonstatus.put("exception", "User not found");
         } else {
             user.setAccountType(AccountType.VERIFIED);
-            userDao.replaceOne(doc, user);
+            userDao.replaceOne(doc, user, userCollection);
             jsonstatus.put("status", "success");
         }
 
@@ -276,23 +276,27 @@ public final class Repository implements RepositoryInterface {
      * @implNote It could return null, if the User doesn't exists
      */
     public String getOverview(final String username) {
-        User temp = userDao.findOne(new Document().append("username", username));
+        User temp = userDao.findOne(new Document().append("username", username), userCollection);
         JSONObject jso = new JSONObject();
-        jso
-                .put("photos", UserUtil.countAllImagesFromUser(username, imageCollection))
-                .put("disc_space", UserUtil.calculateDiscSpace(username, imageCollection) + " / " + UserUtil.getMaxDiscSpaceForUserGB(temp) + " GB")
-                .put("subscription", temp.getSubscriptionStatus().toString())
-                .put("notifications", 0);
+        try {
+            jso
+                    .put("photos", UserUtil.countAllImagesFromUser(username, imageCollection))
+                    .put("disc_space", UserUtil.calculateDiscSpace(username, imageCollection) + " / " + UserUtil.getMaxDiscSpaceForUserGB(temp) + " GB")
+                    .put("subscription", temp.getSubscriptionStatus().toString())
+                    .put("notifications", 0);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         return jso.toString();
     }
 
     // Gets all the Photos from a user in JSON
     public String getPhotos(final String username) {
         Document doc = new Document("owner", username);
-        String liste = ImageUtil.parseImageList(imageDao.findAll(doc).into(new ArrayList<>()));
+        String liste = ImageUtil.parseImageList(imageDao.findAll(doc, imageCollection).into(new ArrayList<>()));
         System.out.println(liste);
 
-        return ImageUtil.parseImageList(imageDao.findAll(doc).into(new ArrayList<>()));
+        return ImageUtil.parseImageList(imageDao.findAll(doc, imageCollection).into(new ArrayList<>()));
     }
 
 /*    public String getPhoto(String thumbnailPath) {
@@ -311,7 +315,7 @@ public final class Repository implements RepositoryInterface {
         //  file.delete();
         String filepath = "uploads/" + owner + "/" + name;
         Document doc = new Document("filepath", filepath);
-        Image deletetone = imageDao.findOneAndDelete(doc);
+        Image deletetone = imageDao.findOneAndDelete(doc, imageCollection);
         if (deletetone == null) {
             deleted.put("status", "failed")
                     .put("exception", "Image doesn't exist");
@@ -364,7 +368,7 @@ public final class Repository implements RepositoryInterface {
         file.renameTo(new File("uploads/" + owner + "/" + newName));
 
         Document doc = new Document("filepath", "uploads/" + owner + "/" + oldName);
-        Image newImage = imageDao.findOneAndDelete(doc);
+        Image newImage = imageDao.findOneAndDelete(doc, imageCollection);
         if (newImage == null) {
 
             renamed.put("status", "failed")
@@ -374,7 +378,7 @@ public final class Repository implements RepositoryInterface {
 
             newImage.setCustomName(newName);
             newImage.setFilepath("uploads/" + owner + "/" + newName);
-            imageDao.insertOne(newImage);
+            imageDao.insertOne(newImage, imageCollection);
 
             renamed.put("status", "success")
                     .put("fileName", newName);

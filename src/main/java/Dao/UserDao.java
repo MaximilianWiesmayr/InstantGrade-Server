@@ -24,30 +24,27 @@ public class UserDao implements MongoInterface<User> {
     }
 
     @Override
-    public User findOne(Document doc) {
-        System.out.println("hellow");
-        User testuser = userCollection.find(doc).first();
-        System.out.println(testuser);
-        return testuser;
+    public User findOne(Document doc, MongoCollection<User> collection) {
+        return collection.find(doc).first();
     }
 
     @Override
-    public void insertOne(User user) {
-        userCollection.insertOne(user);
+    public void insertOne(User user, MongoCollection<User> collection) {
+        collection.insertOne(user);
     }
 
     @Override
-    public FindIterable<User> findAll(Document doc) {
-        return userCollection.find(doc);
+    public FindIterable<User> findAll(Document doc, MongoCollection<User> collection) {
+        return collection.find(doc);
     }
 
     @Override
-    public User findOneAndDelete(Document doc) {
-        return userCollection.findOneAndDelete(doc);
+    public User findOneAndDelete(Document doc, MongoCollection<User> collection) {
+        return collection.findOneAndDelete(doc);
     }
 
     @Override
-    public void replaceOne(Document doc, User user) {
-        userCollection.replaceOne(doc, user);
+    public void replaceOne(Document doc, User user, MongoCollection<User> collection) {
+        collection.replaceOne(doc, user);
     }
 }

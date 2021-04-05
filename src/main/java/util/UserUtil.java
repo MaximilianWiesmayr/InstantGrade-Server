@@ -1,6 +1,7 @@
 package util;
 
 
+import Dao.ImageDao;
 import com.mongodb.client.MongoCollection;
 import entity.Image;
 import entity.User;
@@ -18,6 +19,7 @@ import java.util.Properties;
 
 public class UserUtil {
     private static Properties properties = new Properties();
+    private static ImageDao imageDao = new ImageDao();
 
     // Loads the config File
     public static void initProperties() {
@@ -29,9 +31,9 @@ public class UserUtil {
         }
     }
     // Calculates the used Discspace
-    public static String calculateDiscSpace(final String username, MongoCollection<Image> collection) {
+    public static String calculateDiscSpace(final String username, MongoCollection<Image> imageCollection) {
         // TODO
-        ArrayList<Image> userImages = collection.find(new Document("owner", username)).into(new ArrayList<>());
+        ArrayList<Image> userImages = imageDao.findAll(new Document("owner", username), imageCollection).into(new ArrayList<>());
         JSONObject metaStorage;
         double used_disc_space_MB = 0;
         DecimalFormat df2 = new DecimalFormat("#.##");
@@ -43,8 +45,8 @@ public class UserUtil {
     }
 
     // Counts the Images from the DB
-    public static int countAllImagesFromUser(final String username, MongoCollection<Image> collection) {
-        return (int) collection.countDocuments(new Document("owner", username));
+    public static int countAllImagesFromUser(final String username, MongoCollection<Image> imageCollection) {
+        return (int) imageDao.countDocuments("owner", username, imageCollection);
     }
 
     // Returns the maximum Discspace per User in GB
