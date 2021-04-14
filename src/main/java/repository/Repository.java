@@ -93,67 +93,9 @@ public final class Repository implements RepositoryInterface {
         String filepath = ImageUtil.createFilepath(fileMetaData, owner);
         File tempFile = new File(filepath);
         if (tempI == null && !tempFile.exists()) {
-            try {
-                int read = 0;
-                byte[] bytes = new byte[1024];
-
-                OutputStream out = new FileOutputStream(tempFile);
-                while ((read = imageStream.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-                out.flush();
-                out.close();
-            } catch (IOException e) {
-                e.getStackTrace();
-            } finally {
-                try {
-                    imageStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Image newImage = new Image();
-            newImage.setFactoryName(fileMetaData.getFileName());
-            newImage.setOwner(owner);
-            newImage.setMetadata(ImageUtil.getMetadata(tempFile));
-            Document doc2 = new Document("username", owner);
-            User newUser = userDao.findOne(doc2, userCollection);
-            newUser.getImageFactoryName().add(newImage.getFactoryName());
-            System.out.println("Path control: " + filepath);
-            try {
-                //Process process = Runtime.getRuntime().exec("python3 -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
-                Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "thumb", "./" + filepath});
-                process.waitFor();
-                BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                String line;
-                while ((line = bri.readLine()) != null) {
-                    System.out.println(line);
-                }
-                bri.close();
-                while ((line = bre.readLine()) != null) {
-                    System.out.println(line);
-                }
-                bre.close();
-                process.waitFor();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("createThumbnail");
-            String pathwithoutfile = FilenameUtils.getPath(filepath);
-            System.out.println(pathwithoutfile);
-            String filename = FilenameUtils.getName(filepath);
-            String fileextension = FilenameUtils.getExtension(filepath);
-            System.out.println(filename);
-            filename = filename.split("\\.", 2)[0];
-            System.out.println(filename);
-            String[] splitpathwithoutfile = pathwithoutfile.split("/");
-            newImage.setThumbnailPath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/thumbnail/" + filename + "_thumb.jpg");
-            newImage.setFilepath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/" + filename + "." + fileextension);
-            System.out.println(newImage.getFilepath());
-            System.out.println(newImage.getThumbnailPath());
-            imageDao.insertOne(newImage, imageCollection);
+            saveImageFile(imageStream, tempFile);
+            createThumbnail(filepath);
+            Image newImage = addImagetoDatabase(fileMetaData, owner, tempFile, filepath);
 
             jsonImage.put("status", "success");
             jsonImage.put("fileName", newImage.getFactoryName());
@@ -166,6 +108,77 @@ public final class Repository implements RepositoryInterface {
         }
         return jsonImage.toString();
 
+    }
+
+    private void saveImageFile(InputStream imageStream, File tempFile){
+        try {
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            OutputStream out = new FileOutputStream(tempFile);
+            while ((read = imageStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.getStackTrace();
+        } finally {
+            try {
+                imageStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Image addImagetoDatabase(FormDataContentDisposition fileMetaData, String owner, File tempFile, String filepath){
+        Image newImage = new Image();
+        newImage.setFactoryName(fileMetaData.getFileName());
+        newImage.setOwner(owner);
+        newImage.setMetadata(ImageUtil.getMetadata(tempFile));
+        Document doc2 = new Document("username", owner);
+        User newUser = userDao.findOne(doc2, userCollection);
+        newUser.getImageFactoryName().add(newImage.getFactoryName());
+        System.out.println("Path control: " + filepath);
+        System.out.println("createThumbnail");
+        String pathwithoutfile = FilenameUtils.getPath(filepath);
+        System.out.println(pathwithoutfile);
+        String filename = FilenameUtils.getName(filepath);
+        String fileextension = FilenameUtils.getExtension(filepath);
+        System.out.println(filename);
+        filename = filename.split("\\.", 2)[0];
+        System.out.println(filename);
+        String[] splitpathwithoutfile = pathwithoutfile.split("/");
+        newImage.setThumbnailPath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/thumbnail/" + filename + "_thumb.jpg");
+        newImage.setFilepath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/" + filename + "." + fileextension);
+        System.out.println(newImage.getFilepath());
+        System.out.println(newImage.getThumbnailPath());
+        imageDao.insertOne(newImage, imageCollection);
+
+        return newImage;
+    }
+
+    private void createThumbnail(String filepath){
+        try {
+            //Process process = Runtime.getRuntime().exec("python3 -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "thumb", "./" + filepath});
+            process.waitFor();
+            BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            while ((line = bri.readLine()) != null) {
+                System.out.println(line);
+            }
+            bri.close();
+            while ((line = bre.readLine()) != null) {
+                System.out.println(line);
+            }
+            bre.close();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // create new User with email authentication
@@ -320,29 +333,32 @@ public final class Repository implements RepositoryInterface {
             deleted.put("status", "failed")
                     .put("exception", "Image doesn't exist");
         } else {
-            try {
-                Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "delete", "./" + filepath});
-                process.waitFor();
-                BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
-                BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-                String line;
-                while ((line = bri.readLine()) != null) {
-                    System.out.println(line);
-                }
-                bri.close();
-                while ((line = bre.readLine()) != null) {
-                    System.out.println(line);
-                }
-                bre.close();
-                process.waitFor();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
+            removeImageFile(filepath);
             deleted.put("status", "success")
                     .put("fileName", name);
         }
 
         return deleted.toString();
+    }
+    private void removeImageFile(String filepath){
+        try {
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "delete", "./" + filepath});
+            process.waitFor();
+            BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            while ((line = bri.readLine()) != null) {
+                System.out.println(line);
+            }
+            bri.close();
+            while ((line = bre.readLine()) != null) {
+                System.out.println(line);
+            }
+            bre.close();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public String recover(String filename, String owner) {
