@@ -9,15 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="cleaning code">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="made registration with already used emails impossible">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/ImageUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ImageUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/UserUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/UserUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/SystemUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/SystemUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618397119991</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="made registration with already used emails impossible">
+      <created>1619012609646</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619012609646</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,7 +302,8 @@
     <MESSAGE value="fixed Dao by adding the missing init function" />
     <MESSAGE value="removed init and put it in rep" />
     <MESSAGE value="cleaning code" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaning code" />
+    <MESSAGE value="made registration with already used emails impossible" />
+    <option name="LAST_COMMIT_MESSAGE" value="made registration with already used emails impossible" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
