@@ -43,8 +43,8 @@ public final class Repository implements RepositoryInterface {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
-    private static MongoClient client;
-    private MongoDatabase igDB;
+    //private static MongoClient client;
+    //private MongoDatabase igDB;
     private MongoCollection<User> userCollection;
     private MongoCollection<Image> imageCollection;
 
@@ -72,10 +72,10 @@ public final class Repository implements RepositoryInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":"
+        MongoClient client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":"
                 + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
 
-        igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
+        MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
         userCollection = igDB.getCollection("userCollection", User.class);
         imageCollection = igDB.getCollection("imageCollection", Image.class);
     }
@@ -185,11 +185,10 @@ public final class Repository implements RepositoryInterface {
     public String register(User user) {
         System.out.println(user.getUsername() + " " + user.getEmail());
         JSONObject jsonUser = new JSONObject();
-        Document doc = new Document("username", user.getUsername());
-        doc.put("email", user.getEmail());
+        Document usernamedoc = new Document("username", user.getUsername());
+        Document emaildoc = new Document("email", user.getEmail());
         System.out.println("hi2");
-        User tmpU = userDao.findOne(doc, userCollection);
-        if (tmpU == null) {
+        if (userDao.findOne(usernamedoc, userCollection) == null && userDao.findOne(emaildoc, userCollection) == null) {
 
             try {
 
@@ -214,7 +213,7 @@ public final class Repository implements RepositoryInterface {
         } else {
 
             jsonUser.put("status", "failed");
-            jsonUser.put("exception", "User already exists");
+            jsonUser.put("exception", "Email or Username already exists");
 
         }
         return jsonUser.toString();

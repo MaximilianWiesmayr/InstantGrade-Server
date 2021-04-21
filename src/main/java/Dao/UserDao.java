@@ -19,10 +19,6 @@ public class UserDao implements MongoInterface<User> {
 
     }
 
-    public void init(MongoDatabase igDB) {
-        userCollection = igDB.getCollection("userCollection", User.class);
-    }
-
     @Override
     public User findOne(Document doc, MongoCollection<User> collection) {
         return collection.find(doc).first();
