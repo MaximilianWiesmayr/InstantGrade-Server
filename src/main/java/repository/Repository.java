@@ -38,11 +38,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
  */
 public final class Repository implements RepositoryInterface {
 
-    private List<User> users = new LinkedList<User>();
-
-
-    private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
-            CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
     //private static MongoClient client;
     //private MongoDatabase igDB;
     private MongoCollection<User> userCollection;
@@ -65,19 +60,8 @@ public final class Repository implements RepositoryInterface {
     }
 
     public void connectToDB() {
-        // Set params for DB
-        Properties properties = new Properties();
-        try {
-            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        MongoClient client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":"
-                + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
-
-        MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-        userCollection = igDB.getCollection("userCollection", User.class);
-        imageCollection = igDB.getCollection("imageCollection", Image.class);
+        userCollection = userDao.init();
+        imageCollection = imageDao.init();
     }
 
     /**

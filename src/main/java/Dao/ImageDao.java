@@ -1,25 +1,40 @@
 package Dao;
 
 import Interfaces.MongoInterface;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.MongoClientSettings;
+import com.mongodb.client.*;
 import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 import entity.Image;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class ImageDao implements MongoInterface<Image> {
 
-    private MongoCollection<Image> imageCollection;
-    private List<Image> images = new ArrayList<>();
+    private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+            CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
 
     public ImageDao(){
     }
 
-    public void init(MongoDatabase igDB) {
-        imageCollection = igDB.getCollection("imageCollection", Image.class);
+    public MongoCollection<Image> init() {
+        Properties properties = new Properties();
+        try {
+            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MongoClient client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":"
+                + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
+
+        MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
+        return igDB.getCollection("imageCollection", Image.class);
     }
 
     @Override
