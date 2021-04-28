@@ -146,7 +146,7 @@ public final class Repository implements RepositoryInterface {
     private void createThumbnail(String filepath){
         try {
             //Process process = Runtime.getRuntime().exec("python3 -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
-            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "thumb", "./" + filepath});
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "thumb", "./" + filepath, "lol"});
             process.waitFor();
             BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
@@ -325,7 +325,7 @@ public final class Repository implements RepositoryInterface {
     }
     private void removeImageFile(String filepath){
         try {
-            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "delete", "./" + filepath});
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "delete", "./" + filepath, "lol"});
             process.waitFor();
             BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
