@@ -9,11 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="made verification possible again">
+    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="removing database initialisation from Repository&#10;&#10;uploading images with the type tiff, png and jpeg is now possible">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/createThumbnail.py" beforeDir="false" afterPath="$PROJECT_DIR$/createThumbnail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Interfaces/RepositoryInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Interfaces/RepositoryInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/Repository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -283,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619013725369</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="removing database initialisation from Repository&#10;&#10;uploading images with the type tiff, png and jpeg is now possible">
+      <created>1619550984831</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619550984831</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -314,7 +321,8 @@
     <MESSAGE value="cleaning code" />
     <MESSAGE value="made registration with already used emails impossible" />
     <MESSAGE value="made verification possible again" />
-    <option name="LAST_COMMIT_MESSAGE" value="made verification possible again" />
+    <MESSAGE value="removing database initialisation from Repository&#10;&#10;uploading images with the type tiff, png and jpeg is now possible" />
+    <option name="LAST_COMMIT_MESSAGE" value="removing database initialisation from Repository&#10;&#10;uploading images with the type tiff, png and jpeg is now possible" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

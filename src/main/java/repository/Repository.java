@@ -388,4 +388,33 @@ public final class Repository implements RepositoryInterface {
 
         return null;
     }
+
+    public String prepareDownload(String filepath, String type) {
+        JSONObject download = new JSONObject();
+        try {
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "prepareDownload", "./" + filepath, type});
+            process.waitFor();
+            BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            while ((line = bri.readLine()) != null) {
+                System.out.println(line);
+            }
+            bri.close();
+            while ((line = bre.readLine()) != null) {
+                System.out.println(line);
+            }
+            bre.close();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        String pathwithoutfile = FilenameUtils.getPath(filepath);
+        String filename = FilenameUtils.getName(filepath);
+        String fileNameWithOutExt = FilenameUtils.removeExtension(filename);
+        download.put("status", "success");
+        download.put("path", pathwithoutfile + "forDownload/" + fileNameWithOutExt + "." + type);
+
+        return download.toString();
+    }
 }

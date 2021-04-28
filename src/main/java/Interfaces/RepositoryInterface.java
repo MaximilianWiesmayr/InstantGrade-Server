@@ -13,4 +13,5 @@ public interface RepositoryInterface {
     String getPhotos(final String username);
     String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner);
     String delete(String name, String owner);
+    String prepareDownload(String filepath, String type);
 }
