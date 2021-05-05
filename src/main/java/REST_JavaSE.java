@@ -31,7 +31,6 @@ public class REST_JavaSE {
         server.getServerConfiguration().addHttpHandler(staticHttpHandler, "/uploads/");
         
         System.out.println(String.format("Server startet at %s\nHit enter to stop ...", BASE_URI));
-        Repository.getInstance().connectToDB();
         UserUtil.initProperties();
         Thread.currentThread().join();
         server.shutdownNow();

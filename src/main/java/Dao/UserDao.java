@@ -3,6 +3,7 @@ package Dao;
 import Interfaces.MongoInterface;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.*;
+import entity.Image;
 import entity.User;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -20,12 +21,13 @@ public class UserDao implements MongoInterface<User> {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
+    private MongoCollection<User> collection;
 
     public UserDao(){
 
     }
 
-    public MongoCollection<User> init() {
+    public void init() {
         Properties properties = new Properties();
         try {
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
@@ -36,31 +38,31 @@ public class UserDao implements MongoInterface<User> {
                 + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
 
         MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-        return igDB.getCollection("userCollection", User.class);
+        collection = igDB.getCollection("userCollection", User.class);
     }
 
     @Override
-    public User findOne(Document doc, MongoCollection<User> collection) {
+    public User findOne(Document doc) {
         return collection.find(doc).first();
     }
 
     @Override
-    public void insertOne(User user, MongoCollection<User> collection) {
+    public void insertOne(User user) {
         collection.insertOne(user);
     }
 
     @Override
-    public FindIterable<User> findAll(Document doc, MongoCollection<User> collection) {
+    public FindIterable<User> findAll(Document doc) {
         return collection.find(doc);
     }
 
     @Override
-    public User findOneAndDelete(Document doc, MongoCollection<User> collection) {
+    public User findOneAndDelete(Document doc) {
         return collection.findOneAndDelete(doc);
     }
 
     @Override
-    public void replaceOne(Document doc, User user, MongoCollection<User> collection) {
+    public void replaceOne(Document doc, User user) {
         collection.replaceOne(doc, user);
     }
 }

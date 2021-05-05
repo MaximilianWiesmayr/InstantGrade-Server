@@ -2,6 +2,7 @@ package endpoint;
 
 import repository.Repository;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,7 +16,6 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("clientarea")
 public class ClientAreaService {
-
     /** @return Returns information for the dashboard so it can be displayed */
     // Load Information to Display it on our Dashboard
     @GET

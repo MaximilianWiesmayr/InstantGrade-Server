@@ -73,7 +73,7 @@ public class ImageService {
     /** Recovers the last image that got deleted
      *
      * @return Returns a success message and the filename of the image*/
-    @POST
+    /*@POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("recover")
@@ -83,5 +83,5 @@ public class ImageService {
         String owner = jsonEdit.getString("owner");
 
         return Repository.getInstance().recover(name, owner);
-    }
+    }*/
 }

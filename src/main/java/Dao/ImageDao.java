@@ -19,11 +19,12 @@ public class ImageDao implements MongoInterface<Image> {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
+    private MongoCollection<Image> collection;
 
     public ImageDao(){
     }
 
-    public MongoCollection<Image> init() {
+    public void init() {
         Properties properties = new Properties();
         try {
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
@@ -34,35 +35,35 @@ public class ImageDao implements MongoInterface<Image> {
                 + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
 
         MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
-        return igDB.getCollection("imageCollection", Image.class);
+        collection = igDB.getCollection("imageCollection", Image.class);
     }
 
     @Override
-    public Image findOne(Document doc, MongoCollection<Image> collection) {
+    public Image findOne(Document doc) {
         return collection.find(doc).first();
     }
 
     @Override
-    public void insertOne(Image image, MongoCollection<Image> collection) {
+    public void insertOne(Image image) {
         collection.insertOne(image);
     }
 
     @Override
-    public FindIterable<Image> findAll(Document doc, MongoCollection<Image> collection) {
+    public FindIterable<Image> findAll(Document doc) {
         return collection.find(doc);
     }
 
     @Override
-    public Image findOneAndDelete(Document doc, MongoCollection<Image> collection) {
+    public Image findOneAndDelete(Document doc) {
         return collection.findOneAndDelete(doc);
     }
 
     @Override
-    public void replaceOne(Document doc, Image image, MongoCollection<Image> collection) {
+    public void replaceOne(Document doc, Image image) {
         collection.replaceOne(doc, image);
     }
 
-    public long countDocuments(String filterfield, String filter, MongoCollection<Image> collection){
+    public long countDocuments(String filterfield, String filter){
         long count = collection.countDocuments(new Document(filterfield, filter));
         return count;
     }
