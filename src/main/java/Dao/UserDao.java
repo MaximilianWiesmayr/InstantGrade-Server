@@ -17,7 +17,7 @@ import java.util.Properties;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public class UserDao implements MongoInterface<User> {
+public class UserDao implements Dao<User> {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));
@@ -39,6 +39,11 @@ public class UserDao implements MongoInterface<User> {
 
         MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
         collection = igDB.getCollection("userCollection", User.class);
+    }
+
+    @Override
+    public long countDocuments(String filterfield, String filter) {
+        return 0;
     }
 
     @Override

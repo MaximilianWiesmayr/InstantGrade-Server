@@ -55,7 +55,7 @@ public class EmailUtil {
         }
     }
 
-    private static String encrypt(String value) {
+    public static String encrypt(String value) {
         try {
             IvParameterSpec iv = new IvParameterSpec(initVector.getBytes("UTF-8"));
             SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes("UTF-8"), "AES");

@@ -15,7 +15,7 @@ import java.util.Properties;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
-public class ImageDao implements MongoInterface<Image> {
+public class ImageDao implements Dao<Image> {
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             CodecRegistries.fromProviders((PojoCodecProvider.builder().automatic(true).build())));

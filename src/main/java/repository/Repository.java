@@ -1,8 +1,7 @@
 package repository;
 
 
-import Dao.ImageDao;
-import Dao.UserDao;
+import Dao.*;
 import Interfaces.RepositoryInterface;
 import entity.Image;
 import entity.User;
@@ -17,6 +16,7 @@ import util.SystemUtil;
 import util.UserUtil;
 import util.jwt.JWTHelper;
 
+import javax.json.Json;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -25,18 +25,24 @@ import java.util.ArrayList;
  */
 public final class Repository implements RepositoryInterface {
 
-    private static boolean isInTestMode;
+    private static boolean isInTestMode = false;
 
-    private static ImageDao imageDao;
-    private static UserDao userDao;
+    private static Dao<Image> imageDao;
+    private static Dao<User> userDao;
     private static RepositoryInterface instance = null;
 
     private JWTHelper jwth = new JWTHelper();
 
     private Repository() {
-        imageDao = new ImageDao();
-        userDao = new UserDao();
-        connectToDB();
+        if(isInTestMode){
+            imageDao = new FakeImageDao();
+            userDao = new FakeUserDao();
+        } else {
+            imageDao = new ImageDao();
+            userDao = new UserDao();
+            connectToDB();
+        }
+
     }
 
     /**
@@ -55,6 +61,10 @@ public final class Repository implements RepositoryInterface {
         return instance;
     }
 
+    public static void setIsInTestMode() {
+        isInTestMode = true;
+    }
+
     private void connectToDB() {
         userDao.init();
         imageDao.init();
@@ -64,6 +74,7 @@ public final class Repository implements RepositoryInterface {
      * @author Maximilian Wiesmayr
      */
     // uploads image to Server and Database
+    @Override
     public String upload(InputStream imageStream, FormDataContentDisposition fileMetaData, String owner) {
         JSONObject jsonImage = new JSONObject();
 
@@ -162,6 +173,7 @@ public final class Repository implements RepositoryInterface {
     }
 
     // create new User with email authentication
+    @Override
     public String register(User user) {
         System.out.println(user.getUsername() + " " + user.getEmail());
         JSONObject jsonUser = new JSONObject();
@@ -170,15 +182,14 @@ public final class Repository implements RepositoryInterface {
         System.out.println("hi2");
         if (userDao.findOne(usernamedoc) == null && userDao.findOne(emaildoc) == null) {
 
-            try {
-
-                EmailUtil.emailauth(user);
-
-            } catch (Exception e) {
-
-                e.printStackTrace();
-
+            if(!isInTestMode){
+                try {
+                    EmailUtil.emailauth(user);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+
             User newUser = new User();
             newUser.setUsername(user.getUsername());
             newUser.setFirstname(user.getFirstname());
@@ -200,6 +211,7 @@ public final class Repository implements RepositoryInterface {
     }
 
     // login with jwt Token
+    @Override
     public String login(User user) {
         JSONObject jsonUser = new JSONObject();
         Document doc = new Document("username", user.getUsername());
@@ -229,6 +241,7 @@ public final class Repository implements RepositoryInterface {
     }
 
     // verify user with verification Code
+    @Override
     public String verify(String verifivationCode) {
 
         JSONObject jsonstatus = new JSONObject();
@@ -267,6 +280,7 @@ public final class Repository implements RepositoryInterface {
      * @param username - UNIQUE - Is the Key, to search in the Database.
      * @implNote It could return null, if the User doesn't exists
      */
+    @Override
     public String getOverview(final String username) {
         User temp = userDao.findOne(new Document().append("username", username));
         JSONObject jso = new JSONObject();
@@ -283,15 +297,20 @@ public final class Repository implements RepositoryInterface {
     }
 
     // Counts the Images from the DB
-    public static int countAllImagesFromUser(final String username) {
+    private static int countAllImagesFromUser(final String username) {
         return (int) imageDao.countDocuments("owner", username);
     }
 
     private ArrayList<Image> getUserImages(String username) {
-        return imageDao.findAll(new Document("owner", username)).into(new ArrayList<>());
+        if (isInTestMode) {
+            return new ArrayList<>();
+        } else {
+            return imageDao.findAll(new Document("owner", username)).into(new ArrayList<>());
+        }
     }
 
     // Gets all the Photos from a user in JSON
+    @Override
     public String getPhotos(final String username) {
         Document doc = new Document("owner", username);
         String liste = ImageUtil.parseImageList(imageDao.findAll(doc).into(new ArrayList<>()));
@@ -307,6 +326,7 @@ public final class Repository implements RepositoryInterface {
 
 
     //deletes Image from Database and Server
+    @Override
     public String delete(String name, String owner) {
 
         JSONObject deleted = new JSONObject();
@@ -328,6 +348,7 @@ public final class Repository implements RepositoryInterface {
 
         return deleted.toString();
     }
+
     private void removeImageFile(String filepath){
         try {
             Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "delete", "./" + filepath, "lol"});
@@ -394,6 +415,7 @@ public final class Repository implements RepositoryInterface {
         return null;
     }
 
+    @Override
     public String prepareDownload(String filepath, String type) {
         JSONObject download = new JSONObject();
         try {
@@ -421,5 +443,54 @@ public final class Repository implements RepositoryInterface {
         download.put("path", pathwithoutfile + "forDownload/" + fileNameWithOutExt + "." + type);
 
         return download.toString();
+    }
+
+    @Override
+    public String reset(String name, String owner){
+        String filepath = "uploads/" + owner + "/" + name;
+        try {
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "reset", "./" + filepath, "lol"});
+            process.waitFor();
+            BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            while ((line = bri.readLine()) != null) {
+                System.out.println(line);
+            }
+            bri.close();
+            while ((line = bre.readLine()) != null) {
+                System.out.println(line);
+            }
+            bre.close();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            //Process process = Runtime.getRuntime().exec("python3 -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
+            Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "thumb", "./" + filepath, "lol"});
+            process.waitFor();
+            BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            while ((line = bri.readLine()) != null) {
+                System.out.println(line);
+            }
+            bri.close();
+            while ((line = bre.readLine()) != null) {
+                System.out.println(line);
+            }
+            bre.close();
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject reset = new JSONObject();
+        reset.put("status", "success")
+                .put("fileName", name);
+
+        return reset.toString();
     }
 }

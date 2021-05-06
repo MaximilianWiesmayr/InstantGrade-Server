@@ -55,9 +55,17 @@ def prepareDownload(path=arg2, type=arg3):
     os.makedirs(ntpath.dirname(path) + "/forDownload")
     imageio.imsave(ntpath.dirname(path) + "/forDownload/" + imagename[0] + "." + type, img)
 
+def reset(path=arg2, empty=arg3):
+    imagename = ntpath.basename(path).rsplit(".", 2)
+    deleteeditedpath = ntpath.dirname(path) + "/edited/" + imagename[0] + ".tiff"
+    if os.path.exists(deleteeditedpath):
+        os.remove(deleteeditedpath)
+
 if arg1 == "thumb":
     generateThumbnail()
 elif arg1 == "delete":
     delete()
 elif arg1 == "prepareDownload":
     prepareDownload()
+elif arg1 == "reset":
+    reset()

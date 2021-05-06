@@ -70,6 +70,18 @@ public class ImageService {
         return Repository.getInstance().prepareDownload(filepath, type);
     }
 
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("reset")
+    public String reset(String jsonEditString){
+        JSONObject jsonEdit = new JSONObject(jsonEditString);
+        String name = jsonEdit.getString("imageName");
+        String owner = jsonEdit.getString("owner");
+
+        return Repository.getInstance().reset(name, owner);
+    }
+
     /** Recovers the last image that got deleted
      *
      * @return Returns a success message and the filename of the image*/
