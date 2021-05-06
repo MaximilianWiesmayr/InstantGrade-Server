@@ -10,10 +10,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.bson.Document;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.json.JSONObject;
-import util.EmailUtil;
-import util.ImageUtil;
-import util.SystemUtil;
-import util.UserUtil;
+import util.*;
 import util.jwt.JWTHelper;
 
 import javax.json.Json;
@@ -25,24 +22,26 @@ import java.util.ArrayList;
  */
 public final class Repository implements RepositoryInterface {
 
-    private static boolean isInTestMode = false;
-
-    private static Dao<Image> imageDao;
-    private static Dao<User> userDao;
     private static RepositoryInterface instance = null;
+
+    private final Dao<Image> imageDao;
+    private final Dao<User> userDao;
+    private final EmailSender emailSender;
 
     private JWTHelper jwth = new JWTHelper();
 
     private Repository() {
-        if(isInTestMode){
-            imageDao = new FakeImageDao();
-            userDao = new FakeUserDao();
-        } else {
             imageDao = new ImageDao();
             userDao = new UserDao();
+            emailSender = new InstantGradeEmailSender();
             connectToDB();
-        }
 
+    }
+
+    public Repository(Dao<Image> imageDao, Dao<User> userDao, EmailSender emailSender) {
+        this.imageDao = imageDao;
+        this.userDao = userDao;
+        this.emailSender = emailSender;
     }
 
     /**
@@ -61,8 +60,11 @@ public final class Repository implements RepositoryInterface {
         return instance;
     }
 
-    public static void setIsInTestMode() {
-        isInTestMode = true;
+    public static RepositoryInterface getInstance(Dao<Image> imageDao, Dao<User> userDao, EmailSender emailSender) {
+        if (instance == null) {
+            instance = new Repository(imageDao, userDao, emailSender);
+        }
+        return instance;
     }
 
     private void connectToDB() {
@@ -182,13 +184,7 @@ public final class Repository implements RepositoryInterface {
         System.out.println("hi2");
         if (userDao.findOne(usernamedoc) == null && userDao.findOne(emaildoc) == null) {
 
-            if(!isInTestMode){
-                try {
-                    EmailUtil.emailauth(user);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            emailSender.sendAuthEmail(user);
 
             User newUser = new User();
             newUser.setUsername(user.getUsername());
@@ -297,16 +293,12 @@ public final class Repository implements RepositoryInterface {
     }
 
     // Counts the Images from the DB
-    private static int countAllImagesFromUser(final String username) {
+    private int countAllImagesFromUser(final String username) {
         return (int) imageDao.countDocuments("owner", username);
     }
 
     private ArrayList<Image> getUserImages(String username) {
-        if (isInTestMode) {
-            return new ArrayList<>();
-        } else {
-            return imageDao.findAll(new Document("owner", username)).into(new ArrayList<>());
-        }
+        return imageDao.findAll(new Document("owner", username)).into(new ArrayList<>());
     }
 
     // Gets all the Photos from a user in JSON
