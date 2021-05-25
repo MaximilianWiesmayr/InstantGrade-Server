@@ -4,6 +4,8 @@ import com.mongodb.client.FindIterable;
 import entity.User;
 import org.bson.Document;
 
+import java.util.ArrayList;
+
 public class FakeUserDao implements Dao<User>{
 
     public User fakeUser = null;
@@ -24,7 +26,7 @@ public class FakeUserDao implements Dao<User>{
     }
 
     @Override
-    public FindIterable<User> findAll(Document doc) {
+    public ArrayList<User> findAll(Document doc) {
         return null;
     }
 

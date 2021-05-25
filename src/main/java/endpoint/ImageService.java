@@ -30,19 +30,6 @@ public class ImageService {
         return Repository.getInstance().upload(fileInputStream, fileMetaData, owner);
     }
 
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("edit")
-    public String edit(String jsonEditString) {
-        JSONObject jsonEdit = new JSONObject(jsonEditString);
-        String oldName = jsonEdit.getString("oldName");
-        String newName = jsonEdit.getString("newName");
-        String owner = jsonEdit.getString("owner");
-
-        return Repository.getInstance().edit(oldName, newName, owner);
-    }*/
-
     /** Deletes an image from the users uploaded images
      *
      * @return Returns a success message and the filename of the deleted image*/
@@ -81,19 +68,4 @@ public class ImageService {
 
         return Repository.getInstance().reset(name, owner);
     }
-
-    /** Recovers the last image that got deleted
-     *
-     * @return Returns a success message and the filename of the image*/
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("recover")
-    public String recover(String jsonEditString) {
-        JSONObject jsonEdit = new JSONObject(jsonEditString);
-        String name = jsonEdit.getString("imageName");
-        String owner = jsonEdit.getString("owner");
-
-        return Repository.getInstance().recover(name, owner);
-    }*/
 }

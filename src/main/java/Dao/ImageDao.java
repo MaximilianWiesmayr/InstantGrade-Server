@@ -49,8 +49,8 @@ public class ImageDao implements Dao<Image> {
     }
 
     @Override
-    public FindIterable<Image> findAll(Document doc) {
-        return collection.find(doc);
+    public ArrayList<Image> findAll(Document doc) {
+        return collection.find(doc).into(new ArrayList<>());
     }
 
     @Override

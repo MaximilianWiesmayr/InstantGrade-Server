@@ -9,12 +9,33 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="added unit tests">
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/EmailSender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/InstantGradeEmailSender.java" afterDir="false" />
+    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="made Repository and EmailSender injectable">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_tyrus_tyrus_server_1_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_tyrus_tyrus_server_1_13.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_13_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_4_20.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_0_M1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_0_M1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/LoginServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/LoginServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createThumbnail.py" beforeDir="false" afterPath="$PROJECT_DIR$/createThumbnail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/FakeImageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/FakeImageDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/FakeUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/FakeUserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Interfaces/MongoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Interfaces/MongoInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/endpoint_tests/ClientAreaServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ImageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/endpoint_tests/ImageServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/LoginServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/endpoint_tests/LoginServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/Repository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/Fakes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Fakes/Fakes.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +100,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/resources" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/InstantGrade-Server_testImpl" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -112,48 +133,77 @@
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="endpoint" />
       <recent name="repository" />
       <recent name="Tests.endpoint" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoginServiceTest.itShouldSendAnEmailToUser_GivenTheUserCanBeRegistered">
+  <component name="RunManager" selected="JUnit.LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheUserWasNotFoundInTheDatabase">
     <configuration name="REST_JavaSE" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="MAIN_CLASS_NAME" value="REST_JavaSE" />
       <module name="InstantGrade-Server" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginServiceTest.itShouldNotRegisterANewUser_GivenUsernameAndEmailAreInDatabase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheUserWasNotFoundInTheDatabase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="InstantGrade-Server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="endpoint.*" />
+          <option name="PATTERN" value="endpoint_tests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="endpoint" />
-      <option name="MAIN_CLASS_NAME" value="endpoint.LoginServiceTest" />
-      <option name="METHOD_NAME" value="itShouldNotRegisterANewUser_GivenUsernameAndEmailAreInDatabase" />
+      <option name="PACKAGE_NAME" value="endpoint_tests" />
+      <option name="MAIN_CLASS_NAME" value="endpoint_tests.LoginServiceTest" />
+      <option name="METHOD_NAME" value="ItShouldNotVerifyTheUser_GivenTheUserWasNotFoundInTheDatabase" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginServiceTest.itShouldRegisterANewUser_GivenNeitherUsernameNorEmailIsInDatabase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheVerificationCodeIsInvalid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="InstantGrade-Server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="endpoint.*" />
+          <option name="PATTERN" value="endpoint_tests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="endpoint" />
-      <option name="MAIN_CLASS_NAME" value="endpoint.LoginServiceTest" />
-      <option name="METHOD_NAME" value="itShouldRegisterANewUser_GivenNeitherUsernameNorEmailIsInDatabase" />
+      <option name="PACKAGE_NAME" value="endpoint_tests" />
+      <option name="MAIN_CLASS_NAME" value="endpoint_tests.LoginServiceTest" />
+      <option name="METHOD_NAME" value="ItShouldNotVerifyTheUser_GivenTheVerificationCodeIsInvalid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginServiceTest.ItShouldVerifyTheUser_GivenTheUserWasFoundInTheDatabase" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="InstantGrade-Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="endpoint_tests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="endpoint_tests" />
+      <option name="MAIN_CLASS_NAME" value="endpoint_tests.LoginServiceTest" />
+      <option name="METHOD_NAME" value="ItShouldVerifyTheUser_GivenTheUserWasFoundInTheDatabase" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -163,29 +213,13 @@
       <module name="InstantGrade-Server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="endpoint.*" />
+          <option name="PATTERN" value="endpoint_tests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="endpoint" />
-      <option name="MAIN_CLASS_NAME" value="endpoint.LoginServiceTest" />
+      <option name="PACKAGE_NAME" value="endpoint_tests" />
+      <option name="MAIN_CLASS_NAME" value="endpoint_tests.LoginServiceTest" />
       <option name="METHOD_NAME" value="itShouldSendAnEmailToUser_GivenTheUserCanBeRegistered" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LoginServiceTest.testSuccessfulRegister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="InstantGrade-Server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="endpoint.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="endpoint" />
-      <option name="MAIN_CLASS_NAME" value="endpoint.LoginServiceTest" />
-      <option name="METHOD_NAME" value="testSuccessfulRegister" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -193,10 +227,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheUserWasNotFoundInTheDatabase" />
+        <item itemvalue="JUnit.LoginServiceTest.ItShouldVerifyTheUser_GivenTheUserWasFoundInTheDatabase" />
+        <item itemvalue="JUnit.LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheVerificationCodeIsInvalid" />
         <item itemvalue="JUnit.LoginServiceTest.itShouldSendAnEmailToUser_GivenTheUserCanBeRegistered" />
-        <item itemvalue="JUnit.LoginServiceTest.itShouldNotRegisterANewUser_GivenUsernameAndEmailAreInDatabase" />
-        <item itemvalue="JUnit.LoginServiceTest.itShouldRegisterANewUser_GivenNeitherUsernameNorEmailIsInDatabase" />
-        <item itemvalue="JUnit.LoginServiceTest.testSuccessfulRegister" />
         <item itemvalue="Application.REST_JavaSE" />
       </list>
     </recent_temporary>
@@ -300,6 +334,12 @@
       <workItem from="1614425588467" duration="23175000" />
       <workItem from="1614579963136" duration="15515000" />
       <workItem from="1614757205919" duration="1407000" />
+      <workItem from="1620559501983" duration="1079000" />
+      <workItem from="1620576985656" duration="8002000" />
+      <workItem from="1620642187513" duration="19072000" />
+      <workItem from="1621159524094" duration="1203000" />
+      <workItem from="1621328835065" duration="2141000" />
+      <workItem from="1621853320604" duration="3202000" />
     </task>
     <task id="LOCAL-00001" summary="fixed thumbnails">
       <created>1603043950451</created>
@@ -399,11 +439,18 @@
       <option name="project" value="LOCAL" />
       <updated>1620282850537</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="made Repository and EmailSender injectable">
+      <created>1620286512640</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1620286512640</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -435,7 +482,8 @@
     <MESSAGE value="fixed wrong interpretation of image type" />
     <MESSAGE value="added junit to maven" />
     <MESSAGE value="added unit tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="added unit tests" />
+    <MESSAGE value="made Repository and EmailSender injectable" />
+    <option name="LAST_COMMIT_MESSAGE" value="made Repository and EmailSender injectable" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

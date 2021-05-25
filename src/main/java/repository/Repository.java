@@ -250,7 +250,7 @@ public final class Repository implements RepositoryInterface {
         }
         Document doc = new Document("username", username);
         User user = userDao.findOne(doc);
-        if (userDao.findOne(doc) == null) {
+        if (!user.getUsername().equals(username)) {
             jsonstatus.put("status", "fail");
             jsonstatus.put("exception", "User not found");
         } else {
@@ -298,17 +298,17 @@ public final class Repository implements RepositoryInterface {
     }
 
     private ArrayList<Image> getUserImages(String username) {
-        return imageDao.findAll(new Document("owner", username)).into(new ArrayList<>());
+        return imageDao.findAll(new Document("owner", username));
     }
 
     // Gets all the Photos from a user in JSON
     @Override
     public String getPhotos(final String username) {
         Document doc = new Document("owner", username);
-        String liste = ImageUtil.parseImageList(imageDao.findAll(doc).into(new ArrayList<>()));
+        String liste = ImageUtil.parseImageList(imageDao.findAll(doc));
         System.out.println(liste);
 
-        return ImageUtil.parseImageList(imageDao.findAll(doc).into(new ArrayList<>()));
+        return ImageUtil.parseImageList(imageDao.findAll(doc));
     }
 
 /*    public String getPhoto(String thumbnailPath) {

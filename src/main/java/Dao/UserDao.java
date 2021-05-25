@@ -57,8 +57,8 @@ public class UserDao implements Dao<User> {
     }
 
     @Override
-    public FindIterable<User> findAll(Document doc) {
-        return collection.find(doc);
+    public ArrayList<User> findAll(Document doc) {
+        return collection.find(doc).into(new ArrayList<>());
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MongoInterface<T> {
@@ -12,7 +13,7 @@ public interface MongoInterface<T> {
 
     void insertOne(T t);
 
-    FindIterable<T> findAll(Document doc);
+    ArrayList<T> findAll(Document doc);
 
     T findOneAndDelete(Document doc);
 

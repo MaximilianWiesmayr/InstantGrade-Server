@@ -16,7 +16,7 @@ arg3 = sys.argv[3]
 def generateThumbnail(path=arg2, empty=arg3):
     imagename = ntpath.basename(path).rsplit(".", 2)
     img = Image.open(path)
-    print(imagename[1])
+
     if imagename[1] == "jpg" or imagename[1] == "tif" or imagename[1] == "tiff" or imagename[1] == "png":
         thumb = Image.open(path)
         thumb = thumb.convert('RGB')
@@ -26,14 +26,14 @@ def generateThumbnail(path=arg2, empty=arg3):
     if not os.path.exists(ntpath.dirname(path) + "/thumbnail"):
         os.makedirs(ntpath.dirname(path) + "/thumbnail")
     savepath = ntpath.dirname(path) + "/thumbnail/" + imagename[0] + "_thumb.jpg"
-    print(savepath)
+
     imageio.imsave(savepath, thumb)
 
 def delete(path=arg2, empty=arg3):
     imagename = ntpath.basename(path).rsplit(".", 2)
     deletepath = ntpath.dirname(path) + "/thumbnail/" + imagename[0] + "_thumb.jpg"
     deleteeditedpath = ntpath.dirname(path) + "/edited/" + imagename[0] + ".tiff"
-    print(deletepath)
+
     os.remove(path)
     os.remove(deletepath)
     if os.path.exists(deleteeditedpath):
@@ -41,6 +41,7 @@ def delete(path=arg2, empty=arg3):
 
 def prepareDownload(path=arg2, type=arg3):
     imagename = ntpath.basename(path).rsplit(".", 2)
+
     if os.path.exists(ntpath.dirname(path) + "/forDownload"):
         shutil.rmtree(ntpath.dirname(path) + "/forDownload")
     if not os.path.exists(ntpath.dirname(path) + "/edited/" + imagename[0] + ".tiff"):
@@ -58,6 +59,7 @@ def prepareDownload(path=arg2, type=arg3):
 def reset(path=arg2, empty=arg3):
     imagename = ntpath.basename(path).rsplit(".", 2)
     deleteeditedpath = ntpath.dirname(path) + "/edited/" + imagename[0] + ".tiff"
+
     if os.path.exists(deleteeditedpath):
         os.remove(deleteeditedpath)
 
