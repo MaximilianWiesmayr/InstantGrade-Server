@@ -283,7 +283,7 @@ public final class Repository implements RepositoryInterface {
         try {
             jso
                     .put("photos", countAllImagesFromUser(username))
-                    .put("disc_space", UserUtil.calculateDiscSpace(getUserImages(username)) + " / " + UserUtil.getMaxDiscSpaceForUserGB(temp) + " GB")
+                    .put("disc_space", UserUtil.calculateDiscSpace(getUserImages(username)))
                     .put("subscription", temp.getSubscriptionStatus().toString())
                     .put("notifications", 0);
         } catch (Exception e){
