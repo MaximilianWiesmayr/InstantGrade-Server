@@ -31,8 +31,7 @@ public class ImageDao implements Dao<Image> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MongoClient client = MongoClients.create("mongodb://" + properties.getProperty("mongo.username") + ":"
-                + properties.getProperty("mongo.password") + "@instantgrade.bastiarts.com:27017/?authSource=IG");
+        MongoClient client = MongoClients.create("mongodb://localhost:27017");
 
         MongoDatabase igDB = client.getDatabase("IG").withCodecRegistry(pojoCodecRegistry);
         collection = igDB.getCollection("imageCollection", Image.class);
