@@ -9,33 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="made Repository and EmailSender injectable">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_tyrus_tyrus_server_1_13.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_tyrus_tyrus_server_1_13.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_annotations_13_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_1_4_20.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_20.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_4_20.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_4_20.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_5_8_0_M1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_8_0_M1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_params_5_8_0_M1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_8_0_M1.xml" beforeDir="false" />
+    <list default="true" id="10f28b27-100a-4ad8-9958-e1b131522834" name="Default Changelist" comment="savestate, added single picture size to getOverview">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createThumbnail.py" beforeDir="false" afterPath="$PROJECT_DIR$/createThumbnail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/InstantGrade-Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InstantGrade-Server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/FakeImageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/FakeImageDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Dao/FakeUserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/FakeUserDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/ImageDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Interfaces/MongoInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Interfaces/MongoInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ClientAreaServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/endpoint_tests/ClientAreaServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/ImageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/ImageServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/endpoint_tests/ImageServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/endpoint/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/endpoint/LoginServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/endpoint_tests/LoginServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/repository/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repository/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Fakes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Fakes/Fakes.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +43,7 @@
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -107,10 +88,10 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -142,21 +123,10 @@
       <recent name="Tests.endpoint" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheUserWasNotFoundInTheDatabase">
+  <component name="RunManager" selected="Application.REST_JavaSE">
     <configuration name="REST_JavaSE" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="REST_JavaSE" />
       <module name="InstantGrade-Server" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -227,11 +197,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.REST_JavaSE" />
         <item itemvalue="JUnit.LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheUserWasNotFoundInTheDatabase" />
         <item itemvalue="JUnit.LoginServiceTest.ItShouldVerifyTheUser_GivenTheUserWasFoundInTheDatabase" />
         <item itemvalue="JUnit.LoginServiceTest.ItShouldNotVerifyTheUser_GivenTheVerificationCodeIsInvalid" />
         <item itemvalue="JUnit.LoginServiceTest.itShouldSendAnEmailToUser_GivenTheUserCanBeRegistered" />
-        <item itemvalue="Application.REST_JavaSE" />
       </list>
     </recent_temporary>
   </component>
@@ -339,7 +309,10 @@
       <workItem from="1620642187513" duration="19072000" />
       <workItem from="1621159524094" duration="1203000" />
       <workItem from="1621328835065" duration="2141000" />
-      <workItem from="1621853320604" duration="3202000" />
+      <workItem from="1621853320604" duration="6471000" />
+      <workItem from="1622017725106" duration="3069000" />
+      <workItem from="1622459083419" duration="5446000" />
+      <workItem from="1635344849931" duration="18000" />
     </task>
     <task id="LOCAL-00001" summary="fixed thumbnails">
       <created>1603043950451</created>
@@ -446,7 +419,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620286512640</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="verification Tests added">
+      <created>1621933540781</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1621933540781</updated>
+    </task>
+    <task id="LOCAL-00017" summary="savestate, added single picture size to getOverview">
+      <created>1624443013904</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1624443013909</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +470,9 @@
     <MESSAGE value="added junit to maven" />
     <MESSAGE value="added unit tests" />
     <MESSAGE value="made Repository and EmailSender injectable" />
-    <option name="LAST_COMMIT_MESSAGE" value="made Repository and EmailSender injectable" />
+    <MESSAGE value="verification Tests added" />
+    <MESSAGE value="savestate, added single picture size to getOverview" />
+    <option name="LAST_COMMIT_MESSAGE" value="savestate, added single picture size to getOverview" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

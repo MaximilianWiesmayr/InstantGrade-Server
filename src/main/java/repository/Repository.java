@@ -133,20 +133,13 @@ public final class Repository implements RepositoryInterface {
         Document doc2 = new Document("username", owner);
         User newUser = userDao.findOne(doc2);
         newUser.getImageFactoryName().add(newImage.getFactoryName());
-        System.out.println("Path control: " + filepath);
-        System.out.println("createThumbnail");
         String pathwithoutfile = FilenameUtils.getPath(filepath);
-        System.out.println(pathwithoutfile);
         String filename = FilenameUtils.getName(filepath);
         String fileextension = FilenameUtils.getExtension(filepath);
-        System.out.println(filename);
         filename = filename.split("\\.", 2)[0];
-        System.out.println(filename);
         String[] splitpathwithoutfile = pathwithoutfile.split("/");
         newImage.setThumbnailPath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/thumbnail/" + filename + "_thumb.jpg");
         newImage.setFilepath(splitpathwithoutfile[0] + "/" + splitpathwithoutfile[1] + "/" + filename + "." + fileextension);
-        System.out.println(newImage.getFilepath());
-        System.out.println(newImage.getThumbnailPath());
         imageDao.insertOne(newImage);
 
         return newImage;
@@ -177,11 +170,9 @@ public final class Repository implements RepositoryInterface {
     // create new User with email authentication
     @Override
     public String register(User user) {
-        System.out.println(user.getUsername() + " " + user.getEmail());
         JSONObject jsonUser = new JSONObject();
         Document usernamedoc = new Document("username", user.getUsername());
         Document emaildoc = new Document("email", user.getEmail());
-        System.out.println("hi2");
         if (userDao.findOne(usernamedoc) == null && userDao.findOne(emaildoc) == null) {
 
             emailSender.sendAuthEmail(user);
@@ -195,7 +186,6 @@ public final class Repository implements RepositoryInterface {
             userDao.insertOne(newUser);
             jsonUser.put("status", "success");
             jsonUser.put("username", user.getUsername());
-            System.out.println("hi3");
 
         } else {
 
@@ -460,7 +450,6 @@ public final class Repository implements RepositoryInterface {
         }
 
         try {
-            //Process process = Runtime.getRuntime().exec("python3 -c \"import createThumbnail;createThumbnail.generateThumbnail(\\\"" + "./" + filepath + "\\\")\"");
             Process process = Runtime.getRuntime().exec(new String[] {"python", "createThumbnail.py", "thumb", "./" + filepath, "lol"});
             process.waitFor();
             BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
